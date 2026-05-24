@@ -1,9 +1,3 @@
-Your Markdown file is ready
-[file-tag: code-generated-file-0-1779644875384658496]
-
-Here is the complete, professional `README.md` content formatted exactly for direct copying into your repository:
-
-```markdown
 # CHANA: Computer-Assisted Histological Analysis Network for Analytics
 ### Automated Osteoclast Segmentation and Counting via Deep Learning
 
