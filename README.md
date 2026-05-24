@@ -1,4 +1,4 @@
-# CHANA: Computer-Assisted Histological Analysis Network for Analytics
+# CHANA: Cell Histology Automated Nuclei Analyzer
 ### Automated Osteoclast Segmentation and Counting via Deep Learning
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
