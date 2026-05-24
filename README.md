@@ -23,14 +23,12 @@ In bone pathology research and pharmaceutical development, evaluating osteoclast
 This repository is currently transitioning from exploratory cloud-hosted notebooks to a production-grade Python package, matching modular software engineering lifecycles.
 
 ```text
-├── .github/workflows/      # Planned CI/CD automated linting and testing pipeline
 ├── data/
 │   ├── raw/                # Original biomedical imagery (not tracked in Git)
 │   └── processed/          # Normalized, resized images and binary masks
 ├── notebooks/              # Google Colab training and exploration artifacts
-│   ├── 01_eda_and_augmentation.ipynb
-│   ├── 02_model_training.ipynb
-│   └── 03_evaluation_and_metrics.ipynb
+│   ├── Model Cross Evaluation.ipynb
+│   ├── CHANA Inference Notebook.ipynb
 ├── src/                    # Production core modules (Migration Phase)
 │   ├── __init__.py
 │   ├── data_loader.py      # Batch generation, tensor scaling, and transforms
