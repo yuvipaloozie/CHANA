@@ -1,6 +1,5 @@
 
 # CHANA: Deep Learning & Domain Adaptation Pipeline for Automated Quantification of Multinucleated TRAP-Stained Osteoclasts
-### Pixel-Level Semantic Segmentation, Curriculum Training, and Instance Separation of Clustered Cells in Digital Pathology
 
 <div align="center">
 
