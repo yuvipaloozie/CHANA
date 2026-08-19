@@ -1,0 +1,29 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+.ipynb_checkpoints/
+.DS_Store
+.vscode/
+.idea/
+
+# Data, weights, and generated results
+/data/
+outputs/
+checkpoints/
+weights/
+models/*.h5
+models/*.keras
+models/*.ckpt*
+models/*.pt
+models/*.pth
+models/*.onnx
+*.npy
+*.npz
+
+# Local manifests may contain machine-specific paths or restricted identifiers
+manifests/local/

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use CHANA, please cite the archived software release and associated manuscript."
+title: "CHANA: sequential domain-curriculum learning for cultured osteoclast segmentation"
+type: software
+version: 0.1.0
+authors:
+  - family-names: Szabo
+    given-names: Sarah
+  - family-names: Tripathy
+    given-names: Yuvraj
+  - family-names: Clark
+    given-names: Leonard
+  - family-names: Heo
+    given-names: Kyeong
+  - family-names: Mody
+    given-names: Vicky
+  - family-names: Taval
+    given-names: Shashidharamurthy
+repository-code: "https://github.com/yuvipaloozie/CHANA"
+license: NOASSERTION
+abstract: >-
+  Research code for semantic segmentation, watershed-based object separation,
+  and morphometric quantification of TRAP-stained cultured osteoclasts using
+  baseline and sequential domain-curriculum training.

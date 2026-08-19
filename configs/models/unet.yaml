@@ -1,0 +1,8 @@
+architecture: unet
+framework: tensorflow
+input_shape: [512, 512, 3]
+classes: 1
+encoder: DenseNet121
+encoder_initialization: imagenet
+deep_supervision_outputs: 1
+final_output_position: 0

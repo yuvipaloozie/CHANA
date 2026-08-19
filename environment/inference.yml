@@ -1,0 +1,15 @@
+name: chana-inference
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - tensorflow==2.15.1
+      - keras-unet-collection==0.1.13
+      - numpy==1.26.4
+      - opencv-python-headless==4.10.0.84
+      - pandas==2.2.2
+      - scikit-image==0.22.0
+      - scipy==1.13.1
+      - PyYAML==6.0.2

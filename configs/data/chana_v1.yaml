@@ -1,0 +1,26 @@
+dataset_id: chana_v1
+image_size: [512, 512]
+channels: 3
+expert_real:
+  total: 2191
+  train: 1629
+  validation: 281
+  test: 281
+curriculum_domains:
+  diffusion: 3000
+  copy_paste: 1500
+  pseudo_label: 2058
+  expert_real_train: 1629
+split:
+  type: random_holdout
+  test_locked: true
+  test_independence_claim: original_scan
+  status: pending_file_level_manifest_verification
+  note: >-
+    The notebook exports use random seeds 999 and 42, but their fractional split
+    statements do not by themselves reproduce the final reported 1629/281/281
+    counts. The release manifest is therefore the authoritative split record.
+preprocessing: v9
+mask_definition: >-
+  Expert-delineated semantic regions visually classified as osteoclasts using
+  the study criteria. The model does not independently count nuclei.
