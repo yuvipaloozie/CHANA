@@ -52,6 +52,7 @@ The essential exports are:
 - `chana_transunet_without_domains.py` and `chana_transunet_with_domains.py`;
 - `chana_diffusionv2.py`, `chana_copy_paste_gen.py`, and
   `chana_pseudo_labelling.py` for the curriculum data phases.
+- `chana_preprocessing_rgb.py` for the original V9 enhancement workflow.
 
 All are under `notebooks/legacy/python_exports/` and are preserved as the
 original computational record. They retain Colab `!pip` cells; after ignoring
