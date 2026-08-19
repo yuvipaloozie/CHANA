@@ -4,6 +4,11 @@ The files in `python_exports/` are the supplied Colab-to-Python exports, except 
 
 Use them in Colab after setting the data paths. Reusable local inference code is under `src/chana/`.
 
+These exports preserve historical filenames and are not the authoritative
+checkpoint registry. In particular, the old inference export loads the
+historically named `UNetPlusPlus_Domain.weights.h5`; use the canonical model
+IDs in `manifests/model_registry.csv` for reproducible comparisons.
+
 | Export | Purpose |
 |---|---|
 | `chana_diffusionv2.py` | Diffusion-named/generative domain workflow supplied for Phase 1 |
