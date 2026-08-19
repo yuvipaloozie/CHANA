@@ -1,0 +1,2 @@
+image_id,image_path,mask_path
+chana_public_example_001,input_image.tif,reference_mask.tif

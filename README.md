@@ -41,6 +41,22 @@ python scripts/predict.py \
 
 The command writes a foreground probability array, binary mask, watershed label image, and object-measurement CSV. Use any of the six model IDs below with the same command.
 
+Compare the U-Net++ baseline and curriculum checkpoints on the cleared
+image-mask pair:
+
+```bash
+python scripts/compare_models.py \
+  --pairs-csv sample_data/public_example/pairs.csv \
+  --output-dir outputs/unetpp_comparison \
+  --weights-dir models \
+  --save-predictions
+```
+
+The comparison verifies each checkpoint by SHA-256, runs the same image through
+both registered model IDs, and writes per-image and summary CSVs containing IoU,
+Dice, pixel average precision, HD95, object precision/recall/F1, and count error.
+Use `--input-stage preprocessed` for images that already passed through V9.
+
 ## Models
 
 | Model ID | Architecture | Training | Checkpoint |
