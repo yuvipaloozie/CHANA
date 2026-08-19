@@ -1,0 +1,5 @@
+Phase,Images used,Maximum epochs,Batch size,Initial learning rate,Principal loss
+Diffusion-derived synthetic,3000,40,16,0.0001,Focal Tversky
+Copy-paste synthetic,1500,80,16,0.00005,Focal Tversky
+Pseudo-labeled real,2058,50,16,0.00002,Soft BCE; label smoothing 0.1
+Expert-labeled real,1910,200,16,0.00001,Focal Tversky

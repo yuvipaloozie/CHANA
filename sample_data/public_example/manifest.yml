@@ -1,21 +1,12 @@
 schema_version: 1
 sample_id: chana_public_example_001
-release_status: candidate
-purpose: Paper example bundle with an expert mask and internally verified derived outputs.
 
 redistribution:
   status: cleared
-  source_or_owner: CHANA study authors
-  license_or_permission: author_confirmed_repository_inclusion_2026-08-19
-  notes: >-
-    The author confirmed that this paper example and its derived TIFFs may be
-    included in the public repository. The final repository-wide data license
-    remains to be recorded separately.
 
 files:
   input_image:
     path: input_image.tif
-    original_filename: 01_original_RGB_native.tif
     sha256: 32e50c6d7e95c4e737f4f686a7e8f9646c70fcd197d4fca63e6c8cacdfd7d4e4
     height: 512
     width: 512
@@ -23,7 +14,6 @@ files:
     dtype: uint8
   reference_mask:
     path: reference_mask.tif
-    original_filename: 02_reference_mask_native.tif
     sha256: 8a0d91ee1256d84a5f9cefcc7b2a30cdc445ad70b455174083a4170ca9c9b9ad
     height: 512
     width: 512
@@ -31,7 +21,6 @@ files:
     dtype: uint8
   probability_map:
     path: probability_float32.tif
-    original_filename: 03_probability_float32.tif
     sha256: 1e049ede5abe4ebfc6d9d0be00031b660510edb9de57914eb0575422054e38be
     height: 512
     width: 512
@@ -39,7 +28,6 @@ files:
     dtype: float32
   binary_prediction:
     path: binary_prediction.tif
-    original_filename: 04_binary_prediction.tif
     sha256: 96a3bb45e3ac13515260f547db8becd882c25e3749f4bdc205505fc4c927b596
     height: 512
     width: 512
@@ -47,7 +35,6 @@ files:
     dtype: uint8
   watershed_labels:
     path: watershed_labels_uint16.tif
-    original_filename: 05_watershed_labels_uint16.tif
     sha256: e89fbc6f754ddcf712725ce0defe4407f132210e576fcca1b4e14b72a50a96e1
     height: 512
     width: 512
@@ -55,7 +42,6 @@ files:
     dtype: uint16
   reference_prediction_overlay:
     path: reference_prediction_overlay.tif
-    original_filename: 06_reference_prediction_overlay.tif
     sha256: 733089f89c3939c49abe24011066783067eff01b75dc8a4ed5ef73e7b3a2de9b
     height: 512
     width: 512
@@ -67,9 +53,6 @@ reference_mask:
   foreground_value: 255
   foreground_pixels: 15395
   foreground_fraction: 0.058727264404296875
-  notes: >-
-    The deposited mask is preserved byte-for-byte. It contains one isolated
-    one-pixel foreground component; no cleanup has been applied.
 
 expected_output:
   probability_threshold: 0.5
@@ -79,22 +62,9 @@ expected_output:
   predicted_foreground_fraction: 0.057552337646484375
   watershed_peak_distance: 20
   watershed_label_count: 13
-  internal_consistency_status: exact
 
 overlay:
-  verification_status: exact_from_deposited_source_outputs
   checkpoint_model_id: unresolved
-  checkpoint_mapping_source: author_confirmation_2026-08-19
   colors_rgb:
     expert_reference_mask: [0, 184, 217]
     model_prediction: [255, 61, 113]
-  color_mapping_source: paper/analysis/legacy/chana_main_manuscript_figures_tables.py
-  notes: >-
-    The author identified the inference model as U-Net++ with domain-curriculum
-    training. The analysis export confirms cyan as the expert semantic mask and
-    pink as the model prediction, and the deposited overlay is reconstructed
-    exactly from the deposited image, masks, and configured colors. The exact
-    checkpoint file remains unresolved because neither registered U-Net++ file
-    reproduces the deposited probability map exactly. It is closer to the
-    hash-identified curriculum checkpoint (whose legacy filename misleadingly
-    contains no_Domain) than to the baseline checkpoint.

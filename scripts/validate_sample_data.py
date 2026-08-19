@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Validate the public-example candidate and its provenance manifest."""
+"""Validate the cleared public inference example."""
 
 from __future__ import annotations
 
@@ -46,7 +46,6 @@ def main():
         f"prediction={report['predicted_foreground_pixels']} pixels, "
         f"watershed={report['watershed_label_count']} labels, "
         f"redistribution={report['redistribution_status']}, "
-        f"internal_consistency={report['internal_consistency_status']}, "
         f"checkpoint={report['overlay_checkpoint_model_id']}"
     )
 

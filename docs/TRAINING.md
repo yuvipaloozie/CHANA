@@ -1,6 +1,6 @@
 # Training protocol
 
-This document records the protocol represented in the supplied notebook exports. The legacy exports remain under `notebooks/legacy/python_exports/` for auditability; they require path cleanup before general execution.
+This document records the protocol represented in the supplied notebook exports. The original exports remain under `notebooks/legacy/python_exports/` and require their Colab/Drive paths to be set before execution.
 
 ## Shared settings
 
@@ -22,20 +22,27 @@ Each architecture is trained on the same expert-real training partition without 
 | U-Net++ | 500 | 1 × 10⁻⁴ |
 | TransUNet | 400 | 1 × 10⁻⁵ |
 
-The final release must state the exact early-stopping/checkpoint monitor and selected epoch for each model from the historical logs.
+The selected epoch for each released model should be added from the historical logs when available.
 
 ## Sequential curriculum
 
 Within each architecture, weights are transferred in this order:
 
-| Phase | Domain | Images | Epochs | Initial learning rate |
+| Phase | Domain | Training images | Epochs | Initial learning rate |
 |---|---|---:|---:|---:|
 | 1 | Diffusion-derived | 3,000 | 40 | 1 × 10⁻⁴ |
 | 2 | Copy-paste | 1,500 | 80 | 5 × 10⁻⁵ |
 | 2.5 | Pseudo-labeled real | 2,058 | 50 | 2 × 10⁻⁵ |
 | 4 | Expert-labeled real | 1,629 | 200 | 1 × 10⁻⁵ |
 
-Pseudo-labels were produced by a fixed TransUNet teacher fine-tuned on expert-real data. They were not produced by each architecture's immediately preceding checkpoint. This distinction must remain explicit in the paper and model card.
+The supplemental Word table reports 1,910 expert-labelled images used because
+that total includes 1,629 training and 281 validation images; optimization uses
+the 1,629-image training partition.
+
+Pseudo-labels were produced by the fixed expert-real-fine-tuned TransUNet
+checkpoint `transunet_pseudolabel_teacher.weights.h5` (historical filename
+`transunet_stage3_real_finetune.weights.h5`). They were not produced by each
+architecture's immediately preceding checkpoint.
 
 ## Evaluation boundary
 
@@ -43,7 +50,7 @@ Validation data may be used for checkpoint selection and threshold specification
 
 ## Reproduction commands
 
-The current training notebooks are historical Colab exports rather than fully parameterized command-line programs. Exact one-command retraining remains a release blocker. Until refactoring is completed, run the appropriate environment and legacy export with paths replaced by manifest-driven loaders, then document the checkpoint SHA-256 and selected epoch.
+The training files are original Colab exports rather than parameterized command-line programs. Set the paths in each export, use the matching environment, and record the resulting checkpoint SHA-256 and selected epoch.
 
 The essential exports are:
 
@@ -54,6 +61,5 @@ The essential exports are:
   `chana_pseudo_labelling.py` for the curriculum data phases.
 - `chana_preprocessing_rgb.py` for the original V9 enhancement workflow.
 
-All are under `notebooks/legacy/python_exports/` and are preserved as the
-original computational record. They retain Colab `!pip` cells; after ignoring
-those notebook-only lines, all ten exports pass Python syntax compilation.
+All are under `notebooks/legacy/python_exports/`. They retain Colab `!pip`
+cells; run them in Colab or remove those notebook-only lines for local use.

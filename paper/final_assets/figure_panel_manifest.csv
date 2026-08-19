@@ -1,44 +1,44 @@
-figure,panel,final_component,required_machine_readable_source,repository_source,status
-Figure 1,workflow,"Cropping preprocessing three architectures baseline/curriculum training domains and locked-test overlays","workflow nodes/edges; dataset counts; selected example IDs; checkpoint hashes",,source_data_not_deposited
-Figure 2,A,"Representative diffusion copy-paste pseudo-labelled and expert-real images","selected image IDs and file hashes",,source_data_not_deposited
-Figure 2,B,"ResNet-50 feature-space UMAP by domain","embedding coordinates; domain labels; feature-extraction metadata",,source_data_not_deposited
-Figure 2,C,"FFD to expert-real with 95% bootstrap intervals","observed FFD values; 300 bootstrap resamples; seed and feature metadata",,source_data_not_deposited
-Figure 3,A,"U-Net++ curriculum-stage mean IoU","per-image checkpoint IoU; checkpoint hashes; bootstrap resamples",,source_data_not_deposited
-Figure 3,B,"U-Net++ curriculum-stage mean Dice","per-image checkpoint Dice; checkpoint hashes; bootstrap resamples",,source_data_not_deposited
-Figure 3,C,"U-Net++ curriculum-stage mean object F1","per-image checkpoint object F1; checkpoint hashes; bootstrap resamples",,source_data_not_deposited
-Figure 3,D,"U-Net++ curriculum-stage mean count MAE","per-image checkpoint count errors; checkpoint hashes; bootstrap resamples",,source_data_not_deposited
-Figure 4,A,"Pixel precision-recall curves for six models","sampled pixel truth/probabilities and plotted PR coordinates",paper/source_data/Figure_4A_pixel_PR_curves_full.csv.gz,deposited
-Figure 4,B,"Image-level IoU distributions for six models","281 per-image IoU values per model",,source_data_not_deposited
-Figure 4,C,"Finite HD95 distributions for six models","281 per-image finite/undefined HD95 status per model",,source_data_not_deposited
-Figure 4,D,"Paired curriculum-minus-baseline IoU effects","paired image differences and bootstrap resamples",paper/source_data/Table_S3_paired_statistics.csv,summary_only
-Figure 5,A,"U-Net baseline expert-count identity plot","281 reference and predicted count pairs",,source_data_not_deposited
-Figure 5,B,"U-Net curriculum expert-count identity plot","281 reference and predicted count pairs",,source_data_not_deposited
-Figure 5,C,"U-Net++ baseline expert-count identity plot","281 reference and predicted count pairs",,source_data_not_deposited
-Figure 5,D,"U-Net++ curriculum expert-count identity plot","281 reference and predicted count pairs",,source_data_not_deposited
-Figure 5,E,"TransUNet baseline expert-count identity plot","281 reference and predicted count pairs",,source_data_not_deposited
-Figure 5,F,"TransUNet curriculum expert-count identity plot","281 reference and predicted count pairs",,source_data_not_deposited
-Figure 6,A,"Object recall by small intermediate and large reference-object area","matched object table with reference area and model identity",,source_data_not_deposited
-Figure 6,B,"Image IoU by low moderate and dense reference-object strata","per-image IoU and reference counts",,source_data_not_deposited
-Figure 6,C,"Image IoU versus expert foreground fraction","per-image IoU and reference foreground fraction",,source_data_not_deposited
-Figure 6,D,"Prespecified curriculum U-Net++ typical failure and area examples","selected image IDs; images; masks; probabilities; object measurements",sample_data/public_example,partial_public_example_only
-Figure S1,A,"Reference object count per locked-test image","281 reference object counts",,source_data_not_deposited
-Figure S1,B,"Expert foreground fraction distribution","281 reference foreground fractions",,source_data_not_deposited
-Figure S1,C,"Reference-object area distribution","reference object-level areas",,source_data_not_deposited
-Figure S1,D,"Reference count versus foreground fraction","281 reference counts and foreground fractions",,source_data_not_deposited
-Figure S2,A,"Raw LAB L CLAHE white-top-hat and fused-RGB preprocessing stages","selected image IDs and all intermediate arrays",,source_data_not_deposited
-Figure S2,B,"Raw-versus-preprocessed luminance KDE","sampled luminance values and KDE parameters",,source_data_not_deposited
-Figure S3,A,"U-Net baseline Bland-Altman count agreement","281 reference/predicted count pairs and limits of agreement",,source_data_not_deposited
-Figure S3,B,"U-Net++ baseline Bland-Altman count agreement","281 reference/predicted count pairs and limits of agreement",,source_data_not_deposited
-Figure S3,C,"TransUNet baseline Bland-Altman count agreement","281 reference/predicted count pairs and limits of agreement",,source_data_not_deposited
-Figure S3,D,"U-Net curriculum Bland-Altman count agreement","281 reference/predicted count pairs and limits of agreement",,source_data_not_deposited
-Figure S3,E,"U-Net++ curriculum Bland-Altman count agreement","281 reference/predicted count pairs and limits of agreement",,source_data_not_deposited
-Figure S3,F,"TransUNet curriculum Bland-Altman count agreement","281 reference/predicted count pairs and limits of agreement",,source_data_not_deposited
-Figure S4,A,"Curriculum U-Net++ input field","selected image ID and image hash",sample_data/public_example/01_original_RGB_native.tif,possible_example_link_unverified
-Figure S4,B,"Expert semantic mask","selected image ID and mask hash",sample_data/public_example/02_reference_mask_native.tif,possible_example_link_unverified
-Figure S4,C,"Foreground probability","float32 probability map and checkpoint hash",sample_data/public_example/03_probability_float32.tif,possible_example_link_unverified
-Figure S4,D,"Pixelwise probability entropy","probability map and entropy formula",,source_data_not_deposited
-Figure S4,E,"Gradient-based activation overlay","activation array; target layer/output; method parameters",,source_data_not_deposited
-Figure S5,A,"Four representative input fields spanning sparse to dense","four selected image IDs and image hashes",,source_data_not_deposited
-Figure S5,B,"Corresponding expert semantic masks","four mask hashes",,source_data_not_deposited
-Figure S5,C,"Corresponding model foreground probabilities","four probability maps and checkpoint hash",,source_data_not_deposited
-Figure S5,D,"Corresponding TP/FP/FN overlays","threshold/postprocessing configuration and overlay arrays",,source_data_not_deposited
+"figure","panel","component","source_data"
+"Figure 1","workflow","Cropping preprocessing three architectures baseline/curriculum training domains and locked-test overlays",""
+"Figure 2","A","Representative diffusion copy-paste pseudo-labelled and expert-real images",""
+"Figure 2","B","ResNet-50 feature-space UMAP by domain",""
+"Figure 2","C","FFD to expert-real with 95% bootstrap intervals",""
+"Figure 3","A","U-Net++ curriculum-stage mean IoU",""
+"Figure 3","B","U-Net++ curriculum-stage mean Dice",""
+"Figure 3","C","U-Net++ curriculum-stage mean object F1",""
+"Figure 3","D","U-Net++ curriculum-stage mean count MAE",""
+"Figure 4","A","Pixel precision-recall curves for six models","paper/source_data/Figure_4A_pixel_PR_curves_full.csv.gz"
+"Figure 4","B","Image-level IoU distributions for six models",""
+"Figure 4","C","Finite HD95 distributions for six models",""
+"Figure 4","D","Paired curriculum-minus-baseline IoU effects","paper/source_data/Table_S3_paired_statistics.csv"
+"Figure 5","A","U-Net baseline expert-count identity plot",""
+"Figure 5","B","U-Net curriculum expert-count identity plot",""
+"Figure 5","C","U-Net++ baseline expert-count identity plot",""
+"Figure 5","D","U-Net++ curriculum expert-count identity plot",""
+"Figure 5","E","TransUNet baseline expert-count identity plot",""
+"Figure 5","F","TransUNet curriculum expert-count identity plot",""
+"Figure 6","A","Object recall by small intermediate and large reference-object area",""
+"Figure 6","B","Image IoU by low moderate and dense reference-object strata",""
+"Figure 6","C","Image IoU versus expert foreground fraction",""
+"Figure 6","D","Prespecified curriculum U-Net++ typical failure and area examples","sample_data/public_example"
+"Figure S1","A","Reference object count per locked-test image",""
+"Figure S1","B","Expert foreground fraction distribution",""
+"Figure S1","C","Reference-object area distribution",""
+"Figure S1","D","Reference count versus foreground fraction",""
+"Figure S2","A","Raw LAB L CLAHE white-top-hat and fused-RGB preprocessing stages",""
+"Figure S2","B","Raw-versus-preprocessed luminance KDE",""
+"Figure S3","A","U-Net baseline Bland-Altman count agreement",""
+"Figure S3","B","U-Net++ baseline Bland-Altman count agreement",""
+"Figure S3","C","TransUNet baseline Bland-Altman count agreement",""
+"Figure S3","D","U-Net curriculum Bland-Altman count agreement",""
+"Figure S3","E","U-Net++ curriculum Bland-Altman count agreement",""
+"Figure S3","F","TransUNet curriculum Bland-Altman count agreement",""
+"Figure S4","A","Curriculum U-Net++ input field","sample_data/public_example/input_image.tif"
+"Figure S4","B","Expert semantic mask","sample_data/public_example/reference_mask.tif"
+"Figure S4","C","Foreground probability","sample_data/public_example/probability_float32.tif"
+"Figure S4","D","Pixelwise probability entropy",""
+"Figure S4","E","Gradient-based activation overlay",""
+"Figure S5","A","Four representative input fields spanning sparse to dense",""
+"Figure S5","B","Corresponding expert semantic masks",""
+"Figure S5","C","Corresponding model foreground probabilities",""
+"Figure S5","D","Corresponding TP/FP/FN overlays",""

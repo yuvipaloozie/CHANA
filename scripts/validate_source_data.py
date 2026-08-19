@@ -26,6 +26,23 @@ TABLE_S3_COLUMNS = [
     "mean_paired_difference", "ci_lower", "ci_upper", "wilcoxon_statistic",
     "p_unadjusted", "p_holm_within_metric",
 ]
+TABLE_1_COLUMNS = [
+    "Architecture", "Training regime", "Nimages", "Nobjects", "Pixel IoU",
+    "Pixel Dice", "Pixel AP", "Finite HD95 (px)",
+]
+TABLE_2_COLUMNS = [
+    "Architecture", "Training regime", "Nimages", "Nobjects",
+    "Object precision", "Object recall", "Object F1", "Count MAE", "Count bias",
+]
+TABLE_S1_COLUMNS = [
+    "Phase", "Images used", "Maximum epochs", "Batch size",
+    "Initial learning rate", "Principal loss",
+]
+TABLE_S2_COLUMNS = [
+    "Architecture", "Encoder", "Input shape", "Trainable parameters",
+    "Nontrainable parameters", "Checkpoint size (MB)", "Mean seconds per image",
+]
+INDEX_COLUMNS = ["file", "bytes", "sha256", "manuscript_item", "content"]
 
 
 def sha256(path: Path) -> str:
@@ -34,6 +51,58 @@ def sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def read_csv(path: Path, expected_columns: list[str]) -> list[dict[str, str]]:
+    with path.open(newline="", encoding="utf-8-sig") as handle:
+        reader = csv.DictReader(handle)
+        if reader.fieldnames != expected_columns:
+            raise SystemExit(f"{path.relative_to(ROOT)} columns mismatch")
+        return list(reader)
+
+
+def validate_final_asset_indexes() -> None:
+    assets = ROOT / "paper" / "final_assets"
+    table_paths = [
+        (assets / "reference_transcriptions" / "Main_Table_1_from_final_Word.csv", TABLE_1_COLUMNS, 6),
+        (assets / "reference_transcriptions" / "Main_Table_2_from_final_Word.csv", TABLE_2_COLUMNS, 6),
+        (assets / "reference_transcriptions" / "Supplementary_Table_S1_from_final_Word.csv", TABLE_S1_COLUMNS, 4),
+        (assets / "reference_transcriptions" / "Supplementary_Table_S2_from_final_Word.csv", TABLE_S2_COLUMNS, 3),
+    ]
+    for path, columns, expected_rows in table_paths:
+        rows = read_csv(path, columns)
+        if len(rows) != expected_rows:
+            raise SystemExit(
+                f"{path.relative_to(ROOT)} contains {len(rows)} rows; "
+                f"expected {expected_rows}"
+            )
+        if any(
+            value.count("(") != value.count(")")
+            for row in rows for value in row.values()
+        ):
+            raise SystemExit(f"{path.relative_to(ROOT)} contains unbalanced parentheses")
+
+    for index_name in ["figure_panel_manifest.csv", "table_manifest.csv"]:
+        with (assets / index_name).open(newline="", encoding="utf-8-sig") as handle:
+            rows = list(csv.DictReader(handle))
+        for row in rows:
+            source = row.get("source_data", "").strip()
+            if source and not (ROOT / source).exists():
+                raise SystemExit(f"{index_name} points to missing source_data: {source}")
+
+
+def validate_source_index() -> None:
+    rows = read_csv(SOURCE / "INDEX.csv", INDEX_COLUMNS)
+    if not rows:
+        raise SystemExit("paper/source_data/INDEX.csv is empty")
+    for row in rows:
+        path = SOURCE / row["file"]
+        if not path.is_file():
+            raise SystemExit(f"INDEX.csv points to missing file: {row['file']}")
+        if path.stat().st_size != int(row["bytes"]):
+            raise SystemExit(f"INDEX.csv byte size mismatch: {row['file']}")
+        if sha256(path) != row["sha256"]:
+            raise SystemExit(f"INDEX.csv SHA-256 mismatch: {row['file']}")
 
 
 def main():
@@ -57,7 +126,9 @@ def main():
         stats = list(reader)
     if len(stats) != 12 or any(row["n_paired_images"] != "281" for row in stats):
         raise SystemExit("Table S3 source-data dimensions mismatch")
-    print("Source-data files validated.")
+    validate_source_index()
+    validate_final_asset_indexes()
+    print("Source-data files and final-asset indexes validated.")
 
 
 if __name__ == "__main__":

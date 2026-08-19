@@ -223,9 +223,5 @@ def validate_sample_manifest(
         "predicted_foreground_pixels": predicted_pixels,
         "predicted_foreground_fraction": predicted_fraction,
         "watershed_label_count": len(deposited_label_values),
-        "internal_consistency_status": output_specification[
-            "internal_consistency_status"
-        ],
-        "overlay_verification_status": manifest["overlay"]["verification_status"],
         "overlay_checkpoint_model_id": checkpoint_model_id,
     }

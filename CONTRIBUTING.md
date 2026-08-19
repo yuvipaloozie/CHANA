@@ -18,7 +18,7 @@ python -m pytest
 - Preserve stable image and model identifiers in outputs.
 - Add or update tests for reusable code changes.
 - Record new dependencies in `pyproject.toml` and the relevant environment file.
-- Do not commit data, checkpoints, local Drive paths, credentials, or personally identifying information.
+- Do not commit restricted data, local Drive paths, credentials, or personally identifying information. Large approved checkpoints must use Git LFS.
 - For numerical manuscript changes, include the machine-readable source data and explain whether the analysis is paired and what the independent unit is.
 - Do not relabel historical checkpoints without verifying their hashes and expected outputs.
 

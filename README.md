@@ -1,115 +1,130 @@
 # CHANA
 
-**Sequential domain-curriculum learning for segmentation and morphometric quantification of cultured osteoclasts**
+**Sequential domain-curriculum learning for osteoclast segmentation and morphometric quantification**
 
-CHANA is a research pipeline for semantic segmentation of TRAP-stained cultured osteoclasts in bright-field microscopy. It compares U-Net, U-Net++, and TransUNet under conventional expert-real training and a sequential curriculum containing diffusion-derived, copy-paste, pseudo-labeled, and expert-labeled real images. Semantic masks are converted to separated objects for cell counts and morphometric measurements.
+[![CI](https://github.com/yuvipaloozie/CHANA/actions/workflows/ci.yml/badge.svg)](https://github.com/yuvipaloozie/CHANA/actions/workflows/ci.yml)
 
-> **Prepublication repository.** This branch is being prepared to accompany a manuscript. Remaining source data, a permanent archive DOI, and the final software license must be added before publication. The current code is for research use and is not a clinical or drug-testing system.
+CHANA segments expert-defined osteoclast regions in TRAP-stained bright-field images. The repository includes six trained evaluation models, the TransUNet pseudo-label teacher, tiled inference from a microscopy image to a semantic mask and separated objects, the original training/data-generation exports, a cleared example, and the machine-readable manuscript results currently available.
 
-## Study at a glance
+> Research use only. CHANA has not been validated for clinical use, treatment decisions, or prospective drug screening.
 
-| Component | Specification |
-|---|---|
-| Expert-labeled real images | 2,191 image-mask pairs: 1,629 training, 281 validation, 281 test |
-| Curriculum domains | 3,000 diffusion-derived; 1,500 copy-paste; 2,058 pseudo-labeled; 1,629 expert-real training images |
-| Architectures | U-Net/DenseNet121, U-Net++/ResNet50, TransUNet/EfficientNetB0 |
-| Input | RGB microscopy image, processed as 512 × 512 tiles |
-| Output | Foreground probability map, binary semantic mask, separated object labels, count, and morphometrics |
-| Primary evaluation | Pixel overlap/discrimination, HD95 boundary error, centroid-matched object metrics, and count agreement |
-| Test design | A fixed 281-image holdout set; the final split manifest must document the random split and scan-level independence |
+## Quick start
 
-Performance summaries are intentionally omitted here until the final main-table values are deposited as verified machine-readable source data tied to the checkpoint registry and locked split manifest.
-
-## Repository layout
-
-```text
-CHANA/
-├── configs/                  # Dataset, model, and experiment specifications
-├── docs/                     # Data, training, model-card, and release documentation
-├── environment/              # Inference/training/generation environments
-├── manifests/                # File-level data, split, domain, and checkpoint registries
-├── models/                   # Weight-placement instructions (weights are not committed)
-├── notebooks/                # Original Colab notebooks and legacy Python exports
-├── paper/
-│   ├── expected_outputs/     # Expected manuscript-output inventory
-│   ├── final_assets/         # Final Word panel/table inventory and provenance audit
-│   └── source_data/          # Machine-readable values underlying figures and tables
-├── sample_data/              # Instructions for a redistributable smoke-test example
-├── scripts/                  # Command-line inference and validation utilities
-├── src/chana/                # Reusable preprocessing, models, inference, and metrics
-└── tests/                    # Lightweight deterministic checks
-```
-
-## Installation
-
-The historical experiments used multiple frameworks. For routine inference and evaluation, use Python 3.10 and the pinned TensorFlow extra:
+Requirements: Git LFS, Python 3.10, and about 2.5 GB of free space for the checkpoints.
 
 ```bash
+git lfs install
 git clone https://github.com/yuvipaloozie/CHANA.git
 cd CHANA
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e ".[tensorflow]"
+git lfs pull
+
+conda env create -f environment/inference.yml
+conda activate chana-inference
+python -m pip install -e .
 ```
 
-Environment specifications are also provided under [`environment/`](environment/). Because the original experiments ran in Google Colab, exact reproduction should use the framework-specific environment matching the relevant script.
+Verify the downloaded checkpoints:
 
-## Inference
+```bash
+python scripts/validate_checkpoints.py --weights-dir models --hash-only
+```
 
-Place a registered checkpoint under `models/` and select it by semantic model
-ID. The resolver verifies its size and SHA-256 before loading it and accepts
-either the canonical release name or the preserved legacy filename:
+Run the full inference pipeline on the included image:
 
 ```bash
 python scripts/predict.py \
-  --input path/to/image.tif \
-  --output-dir outputs/example \
+  --input sample_data/public_example/input_image.tif \
+  --output-dir outputs/public_example \
   --model-id unetpp_curriculum \
   --weights-dir models
 ```
 
-The command writes the foreground probability array, binary mask, watershed
-object-label image, and object measurements. The historical `Domain` and
-`no_Domain` suffixes are reversed for the six primary files, so filenames alone
-are not sufficient provenance. Explicit `--architecture` and `--checkpoint`
-arguments remain available for unregistered development checkpoints but do not
-provide registry hash verification.
+The command writes a foreground probability array, binary mask, watershed label image, and object-measurement CSV. Use any of the six model IDs below with the same command.
 
-## Reproducing the study
+## Models
 
-1. Recreate the appropriate environment from `environment/`.
-2. Populate and validate the manifests:
+| Model ID | Architecture | Training | Checkpoint |
+|---|---|---|---|
+| `unet_baseline` | U-Net / DenseNet121 | Expert-real only | `unet_baseline.weights.h5` |
+| `unet_curriculum` | U-Net / DenseNet121 | Sequential curriculum | `unet_curriculum.weights.h5` |
+| `unetpp_baseline` | U-Net++ / ResNet50 | Expert-real only | `unetpp_baseline.weights.h5` |
+| `unetpp_curriculum` | U-Net++ / ResNet50 | Sequential curriculum | `unetpp_curriculum.weights.h5` |
+| `transunet_baseline` | TransUNet / EfficientNetB0 | Expert-real only | `transunet_baseline.weights.h5` |
+| `transunet_curriculum` | TransUNet / EfficientNetB0 | Sequential curriculum | `transunet_curriculum.weights.h5` |
 
-   ```bash
-   python scripts/validate_manifests.py --require-populated
-   ```
+The canonical names above correct reversed historical `Domain`/`no_Domain` filename labels. The exact file sizes and SHA-256 values are in [`manifests/model_registry.csv`](manifests/model_registry.csv).
 
-3. Obtain data and weights from the manuscript's Data Availability and Code Availability statements.
-4. Follow [`docs/TRAINING.md`](docs/TRAINING.md) for baseline and curriculum schedules.
-5. Use the locked test manifest for final evaluation. Do not tune thresholds or model choices on the test set.
-6. Compare regenerated values against `paper/expected_outputs/` and the source-data deposit.
+`transunet_pseudolabel_teacher.weights.h5` is the fixed teacher used by the
+pseudo-labelling export. It is not one of the six models compared in the final
+evaluation tables.
 
-See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) for what is currently runnable and what remains to be deposited.
+## Pipeline
 
-The final Word documents define the publication panels and target numerical
-values. Their repository representation is tracked under
-[`paper/final_assets/`](paper/final_assets/) without committing the publication
-image binaries. Numerical values are not called reproducible until the source
-CSV/NPZ data reproducing those Word targets is deposited.
+```mermaid
+flowchart LR
+    A[Raw RGB image] --> B[V9 preprocessing]
+    B --> C[512 x 512 tiles]
+    C --> D[Selected model]
+    D --> E[Probability map]
+    E --> F[Mask at probability > 0.5]
+    F --> G[Hole filling and watershed]
+    G --> H[Objects, counts, morphometry]
+```
 
-## Scientific scope and limitations
+The curriculum trains each architecture through diffusion-derived, copy-paste, pseudo-labelled, and expert-labelled real domains. Baseline models use only the expert-real training set. Full settings and phase order are in [`docs/TRAINING.md`](docs/TRAINING.md).
 
-- The model segments regions that experts annotated as osteoclasts after visually applying the study definition; it does **not** independently count nuclei.
-- Watershed-derived objects are analytical instances inferred from semantic masks, not direct instance annotations.
-- Images are two-dimensional bright-field fields from the study acquisition setting. Generalization to other laboratories, microscopes, stains, cell lines, species, or clinical material has not been established.
-- The current repository contains no evidence of prospective drug-screening performance.
-- A random split can still permit unmodeled acquisition correlation. The final release must include stable file identifiers and scan grouping so readers can verify split independence.
+## Training and data-generation code
 
-## Citation and archival release
+The original Colab exports are under [`notebooks/legacy/python_exports/`](notebooks/legacy/python_exports/). They retain their original Drive paths, so set the input/output paths before running them.
 
-Citation metadata are provided in [`CITATION.cff`](CITATION.cff). Before manuscript publication, create an immutable archive (for example, through Zenodo), update the DOI and manuscript citation, deposit the data underlying every graph and table in reusable formats, and add the institutionally approved software license.
+| Task | Script |
+|---|---|
+| V9 RGB preprocessing | [`chana_preprocessing_rgb.py`](notebooks/legacy/python_exports/chana_preprocessing_rgb.py) |
+| Diffusion-domain refinement | [`chana_diffusionv2.py`](notebooks/legacy/python_exports/chana_diffusionv2.py) |
+| Copy-paste generation | [`chana_copy_paste_gen.py`](notebooks/legacy/python_exports/chana_copy_paste_gen.py) |
+| Pseudo-labelling | [`chana_pseudo_labelling.py`](notebooks/legacy/python_exports/chana_pseudo_labelling.py) |
+| U-Net baseline / curriculum | [`without domains`](notebooks/legacy/python_exports/chana_unet_without_domains.py) / [`with domains`](notebooks/legacy/python_exports/chana_unet_with_domains.py) |
+| U-Net++ baseline / curriculum | [`without domains`](notebooks/legacy/python_exports/chana_unetpp_without_domains.py) / [`with domains`](notebooks/legacy/python_exports/chana_unetpp_with_domains.py) |
+| TransUNet baseline / curriculum | [`without domains`](notebooks/legacy/python_exports/chana_transunet_without_domains.py) / [`with domains`](notebooks/legacy/python_exports/chana_transunet_with_domains.py) |
 
-## Contributors
+Reusable inference, preprocessing, postprocessing, model builders, and metrics are under [`src/chana/`](src/chana/). The two notebooks under [`notebooks/`](notebooks/) provide interactive entry points without embedded output images.
 
-Sarah Szabo, Yuvraj Tripathy, Leonard Clark, Kyeong Heo, Vicky Mody, and Shashidharamurthy Taval.
+## Repository map
+
+| Path | Contents |
+|---|---|
+| `src/chana/` | Reusable pipeline code |
+| `scripts/` | Inference and validation commands |
+| `models/` | Six evaluation checkpoints and the pseudo-label teacher (Git LFS) |
+| `environment/` | Inference, training, and generation environments |
+| `notebooks/` | Interactive notebooks and original Colab exports |
+| `sample_data/` | Cleared input, mask, and example outputs |
+| `manifests/` | Model registry and dataset/split schemas |
+| `paper/` | Analysis exports, final table transcriptions, and available source data |
+| `tests/` | Deterministic unit and data-integrity tests |
+
+## Validate the repository
+
+```bash
+python -m pip install -e ".[test]"
+python scripts/validate_manifests.py
+python scripts/validate_source_data.py
+python scripts/validate_sample_data.py --require-cleared
+python -m pytest
+```
+
+## Manuscript data
+
+The final Word documents control figure-panel selection and reported table values; publication figure binaries are not stored here. Their compact repository representation is under [`paper/final_assets/`](paper/final_assets/), and reusable values currently available are under [`paper/source_data/`](paper/source_data/).
+
+Before the PLOS release, the repository still needs:
+
+- the exact train/validation/test manifest with stable image and scan identifiers;
+- the remaining per-image and per-object data behind the final figures and tables;
+- the final license, release tag, and archive DOI.
+
+The current split should be described only as a fixed 281-image random holdout until scan grouping is populated and checked. The included paper example is suitable for exercising file handling and postprocessing, but its supplied probability map is not an exact regression target for a registered checkpoint.
+
+## Citation
+
+Citation metadata are in [`CITATION.cff`](CITATION.cff). The DOI and software license will be added for the archival release.
