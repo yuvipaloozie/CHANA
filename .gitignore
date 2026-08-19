@@ -29,6 +29,6 @@ models/*.onnx
 # Local manifests may contain machine-specific paths or restricted identifiers
 manifests/local/
 
-# Locally staged locked-test examples; remove only after redistribution clearance
+# Unreleased local samples
 sample_data/ten_image_example/images/
 sample_data/ten_image_example/masks/

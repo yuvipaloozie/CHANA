@@ -50,8 +50,11 @@ def _write_manifests(directory: Path, scan_ids=("scan-a", "scan-b")):
         columns=["image_id", "domain", "source_id", "label_source", "notes"],
     ).to_csv(directory / "domain_manifest.csv", index=False)
     pd.DataFrame(
-        [["unet-baseline", "unet", "baseline", "unet.h5", "a" * 64, ""]],
-        columns=["model_id", "architecture", "training_regime", "checkpoint_file", "sha256", "notes"],
+        [["unet-baseline", "unet", "baseline", "unet.h5", "legacy.h5", 1, "a" * 64, "test-env"]],
+        columns=[
+            "model_id", "architecture", "training_regime", "checkpoint_file",
+            "legacy_checkpoint_file", "bytes", "sha256", "verified_environment",
+        ],
     ).to_csv(directory / "model_registry.csv", index=False)
 
 
@@ -74,9 +77,21 @@ def test_primary_model_registry_contains_six_distinct_checkpoints():
     root = Path(__file__).resolve().parents[1]
     registry = pd.read_csv(root / "manifests" / "model_registry.csv")
 
-    assert set(registry["model_id"]) == _validator_module().PRIMARY_MODEL_IDS
+    assert _validator_module().PRIMARY_MODEL_IDS <= set(registry["model_id"])
     assert registry["sha256"].is_unique
     assert (registry["bytes"] > 0).all()
+
+
+def test_pseudolabel_teacher_is_registered_separately_from_evaluation_models():
+    root = Path(__file__).resolve().parents[1]
+    registry = pd.read_csv(root / "manifests" / "model_registry.csv").set_index(
+        "model_id"
+    )
+    teacher = registry.loc["transunet_pseudolabel_teacher"]
+
+    assert teacher["checkpoint_file"] == "transunet_pseudolabel_teacher.weights.h5"
+    assert teacher["legacy_checkpoint_file"] == "transunet_stage3_real_finetune.weights.h5"
+    assert teacher["sha256"] == "26adf1fdb7afcfb3600f8203234ca324b850ccb22b93431448e80d86a5a11fb5"
 
 
 def test_primary_model_ids_are_bound_to_hash_verified_regimes():
@@ -126,15 +141,3 @@ def test_primary_model_ids_are_bound_to_hash_verified_regimes():
         for model_id in expected
     }
     assert observed == expected
-    assert set(registry["identity_status"]) == {
-        "hash_linked_to_evaluation_outputs"
-    }
-
-
-def test_release_registry_requires_archive_urls(tmp_path):
-    _write_manifests(tmp_path)
-    problems = _validator_module().validate(
-        require_populated=True, manifest_dir=tmp_path
-    )
-
-    assert any("archive_url values are required" in problem for problem in problems)

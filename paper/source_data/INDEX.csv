@@ -1,3 +1,3 @@
-file,bytes,sha256,manuscript_item,content,status
-Figure_4A_pixel_PR_curves_full.csv.gz,22760987,ceb5239551cf27881be7eef44ec2971a7f2342b6eae5a93cee402e9692943b5b,Main Figure 4A,Full pixel precision-recall coordinates for six models,supplied final plotting data
-Table_S3_paired_statistics.csv,1346,18cc940976b5d7adb29db33f2c8aae01e34841d3d78ca7677fd38c6a9b10cc04,Supplementary Table S3,Image-paired baseline-versus-curriculum statistics with within-metric Holm correction,supplied finalized numerical table
+file,bytes,sha256,manuscript_item,content
+Figure_4A_pixel_PR_curves_full.csv.gz,22760987,ceb5239551cf27881be7eef44ec2971a7f2342b6eae5a93cee402e9692943b5b,Main Figure 4A,Full pixel precision-recall coordinates for six models
+Table_S3_paired_statistics.csv,1346,18cc940976b5d7adb29db33f2c8aae01e34841d3d78ca7677fd38c6a9b10cc04,Supplementary Table S3,Image-paired baseline-versus-curriculum statistics with within-metric Holm correction

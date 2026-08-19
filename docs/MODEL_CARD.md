@@ -27,10 +27,11 @@ Reported endpoints include pixel precision-recall, IoU, Dice, HD95, centroid-mat
 
 The dataset comes from a single study context and may encode stain, acquisition, or batch-specific features. A random split may underestimate distribution shift if scan grouping is not verified. Dense or overlapping regions can merge, fragment, or generate watershed artifacts. Small objects are more difficult to recall. Probability calibration, external-site generalization, and biological outcome validity require additional study.
 
-## Provenance requirements
+## Checkpoint identity
 
-Do not release or deploy a checkpoint until it has a unique model ID,
-architecture/training-regime label, SHA-256 digest, source code commit,
-data-manifest checksum, and expected evaluation output. The six primary hashes
-are now mapped despite their reversed legacy filename suffixes; use the semantic
-registry IDs and canonical names, not the legacy filenames.
+The six released checkpoints have stable model IDs and SHA-256 values in
+`manifests/model_registry.csv`. Use the canonical model IDs because the old
+`Domain` and `no_Domain` filename suffixes were reversed.
+
+The registry also includes the fixed TransUNet pseudo-label teacher. It is a
+data-generation dependency and is not part of the six-model evaluation.

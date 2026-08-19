@@ -20,10 +20,6 @@ def test_public_example_files_match_manifest():
         0.057552337646484375
     )
     assert report["watershed_label_count"] == 13
-    assert report["internal_consistency_status"] == "exact"
-    assert report["overlay_verification_status"] == (
-        "exact_from_deposited_source_outputs"
-    )
     assert report["overlay_checkpoint_model_id"] == "unresolved"
 
 

@@ -1,0 +1,4 @@
+Architecture,Encoder,Input shape,Trainable parameters,Nontrainable parameters,Checkpoint size (MB),Mean seconds per image
+U-Net,DenseNet121,"(512, 512, 3)",22254369,81600,256.307991,0.095627
+U-Net++,ResNet50,"(512, 512, 3)",7567875,1469312,103.956306,0.089694
+TransUNet,EfficientNetB0,"(512, 512, 3)",41346499,4007555,489.356514,0.086817
