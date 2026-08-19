@@ -9,6 +9,7 @@ Use these files to audit the original implementation and compare it with the reu
 | `chana_diffusionv2.py` | Diffusion-named/generative domain workflow supplied for Phase 1 |
 | `chana_copy_paste_gen.py` | Copy-paste domain construction |
 | `chana_pseudo_labelling.py` | Fixed TransUNet teacher inference and pseudo-label construction |
+| `chana_preprocessing_rgb.py` | Original V9 RGB enhancement and preprocessing analysis |
 | `*_with_domains.py` | Sequential curriculum training by architecture |
 | `*_without_domains.py` | Expert-real-only baseline training by architecture |
 | `chana_inference_notebook.py` | Historical inference workflow |

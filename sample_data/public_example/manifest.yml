@@ -73,7 +73,7 @@ reference_mask:
 
 expected_output:
   probability_threshold: 0.5
-  threshold_operator: greater_than_or_equal
+  threshold_operator: greater_than
   fill_holes: true
   predicted_foreground_pixels: 15087
   predicted_foreground_fraction: 0.057552337646484375
