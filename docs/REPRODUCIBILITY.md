@@ -1,36 +1,41 @@
-# Reproducibility status
+# Reproducibility
 
-## Current status
+## What is included
 
-| Component | Status | Evidence/location |
-|---|---|---|
-| Historical inference and cross-evaluation notebooks | Present | `notebooks/` |
-| Historical domain generation/training exports | Present | `notebooks/legacy/python_exports/` |
-| Deterministic preprocessing and postprocessing | Implemented and unit tested | `src/chana/` |
-| Architecture builders | Extracted from supplied exports | `src/chana/models/` |
-| One-image inference CLI | Implemented; requires verified weights | `scripts/predict.py` |
-| Dataset/split/domain manifests | Schemas only | `manifests/` |
-| Checkpoint registry and hashes | Schema only | `manifests/model_registry.csv` |
-| Public source data behind figures/tables | Not yet deposited | `paper/source_data/` |
-| Redistributable sample and expected output | Not yet deposited | `sample_data/` |
-| Exact end-to-end retraining CLI | Not yet refactored | legacy exports plus `docs/TRAINING.md` |
-| Permanent DOI archive and final license | Not yet assigned | release blockers |
+- pinned inference, training, and generation environments in `environment/`;
+- the six baseline/curriculum training exports, plus diffusion, copy-paste, and pseudo-label generation exports, in `notebooks/legacy/python_exports/`;
+- reusable preprocessing, model construction, postprocessing, inference, and metrics under `src/chana/`;
+- hash-registered metadata for all six final checkpoints in `manifests/model_registry.csv`;
+- an end-to-end tiled inference command in `scripts/predict.py`;
+- a cleared six-TIFF example in `sample_data/public_example/`;
+- final Word-authoritative panel/table inventories in `paper/final_assets/`; and
+- deposited source data currently available under `paper/source_data/`.
 
-## Levels of reproduction
+The six primary weights are stored with Git LFS under logical filenames. The
+registry verifies their semantic model ID, byte size, and SHA-256 before use.
+Restricted test data remains outside Git.
 
-1. **Smoke test:** run preprocessing, mask postprocessing, and metrics on synthetic arrays via `pytest`.
-2. **Inference reproduction:** obtain a verified checkpoint, install the matching TensorFlow environment, and run `scripts/predict.py` on the public sample.
-3. **Result reproduction:** use the frozen test manifest and all six verified checkpoints to regenerate source-data tables and compare checksums.
-4. **Training reproduction:** recreate each domain, retrain baseline and curriculum models with logged seeds/versions, and evaluate only once on the locked test set.
+## Routine inference
 
-The repository currently supports level 1 and provides the code skeleton for level 2. Levels 2–4 require the pending artifact deposits and manifest completion.
+```bash
+conda env create -f environment/inference.yml
+conda activate chana-inference
+python -m pip install -e .
+python scripts/predict.py --input image.tif --output-dir outputs/example \
+  --model-id unetpp_curriculum --weights-dir models
+```
 
-## Minimum release additions
+`predict.py` performs V9 preprocessing, white padding, 512 x 512 tiling, model
+output selection, stitching, strict `> 0.5` thresholding, hole filling,
+watershed separation, and object measurement.
 
-- exact file-level split and scan identifiers;
-- six final model checkpoints plus curriculum checkpoint provenance;
-- SHA-256 digests and archive URLs;
-- actual source-data CSVs for every graph/table;
-- training logs showing selected epochs and random seeds;
-- one public example with expected output;
-- final license, manuscript citation, and archived release DOI.
+## Remaining inputs
+
+- populate stable dataset/split IDs, including `scan_id`, before claiming scan-level independence;
+- add the original machine-readable CSV/NPZ data behind the remaining final Word figures and tables;
+- add phase checkpoints, the pseudo-label teacher, and training logs if exact retraining is required; and
+- link the public six-TIFF example to its exact originating checkpoint.
+
+The final Word documents control reported values and panel selection. The
+repository does not claim well-level splitting, drug-testing validation, or
+full training reproducibility until the corresponding evidence is available.

@@ -7,7 +7,12 @@ Currently included:
 - `Figure_4A_pixel_PR_curves_full.csv.gz`: the final supplied full pixel precision-recall coordinates for all six models (compressed-file SHA-256: `ceb5239551cf27881be7eef44ec2971a7f2342b6eae5a93cee402e9692943b5b`);
 - `Table_S3_paired_statistics.csv`: the finalized numerical paired comparison table supplied in the manuscript workflow.
 
-The remaining final figure/table source files still need to be copied from the authors' definitive analysis output, rather than reconstructed from document graphics or ambiguous older asset folders.
+The final Word documents control the publication-target values and panel
+selection. The remaining source files must reproduce those targets and should
+be copied from the authors' definitive analysis output, rather than reconstructed
+from document graphics or ambiguous older asset folders. See
+`../final_assets/` for the compact panel/table inventory and exact main-table
+transcriptions.
 
 Minimum remaining contents for the final release include:
 

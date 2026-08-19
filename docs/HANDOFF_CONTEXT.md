@@ -187,10 +187,10 @@ Python syntax and git diff checks passed
 
 1. Populate the exact dataset and split manifests with stable IDs and `scan_id`.
 2. Verify no scan overlap between development and test data.
-3. Resolve baseline/curriculum checkpoint identity by hashing and reproducing expected outputs. Historical registries may reverse labels, and TransUNet filenames are reused.
-4. Add all six verified final checkpoints, U-Net++ phase checkpoints, and pseudo-label teacher to a DOI-backed archive; do not commit large weights directly.
+3. Independently reproduce the hash-linked checkpoint results on the final locked split. The primary baseline/curriculum mapping is resolved by exact hashes, but the legacy filename suffixes are reversed and TransUNet training exports reused a stage-3 filename.
+4. Keep the six primary checkpoints in Git LFS; add U-Net++ phase checkpoints and the pseudo-label teacher if exact retraining is in scope.
 5. Add remaining machine-readable source data for every main/supplemental panel and both main tables.
-6. Add one redistribution-cleared smoke-test image with expected outputs.
+6. Link the cleared six-TIFF smoke-test example to its exact originating checkpoint; its internal derived outputs are already verified.
 7. Add the institutionally approved software license.
 8. Create a tagged GitHub release and immutable DOI archive, then update `CITATION.cff` and manuscript availability statements.
 9. Refactor the final locked evaluation into one manifest-driven command; legacy scripts still contain Colab paths and repeated cell exports.
@@ -221,3 +221,12 @@ Do not promote recovered data from damaged asset ZIPs into final source data wit
 8. Apply restrained manuscript corrections and verify all figure/table citations.
 9. Obtain PI approval for final title, license, public data/weights scope, and release wording.
 10. Tag and archive the verified release.
+
+## 14. Checkpoint and sample update (2026-08-19)
+
+All six primary checkpoints are hash-mapped to logical baseline/curriculum IDs,
+renamed canonically, and architecture-load verified. Historical `Domain` names
+map to baseline and `no_Domain` names to curriculum; use the registry hashes.
+The cleared six-TIFF example is internally exact, but its originating checkpoint
+is still unresolved. The locked curriculum cache reproduces in the pinned paper
+environment, and both U-Net++ checkpoints passed a fixed 50-image CPU check.

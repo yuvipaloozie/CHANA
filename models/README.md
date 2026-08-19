@@ -1,9 +1,15 @@
 # Model checkpoints
 
-Model weight files are excluded from Git because they are large binary research artifacts. For a reproducible release:
+The six primary checkpoints are stored here with Git LFS under logical names.
+`manifests/model_registry.csv` records their model IDs, sizes, SHA-256 hashes,
+and historical aliases. Verify their bytes, hashes, and architecture
+compatibility with:
 
-1. Deposit the six final checkpoints (three architectures × baseline/curriculum), relevant U-Net++ phase checkpoints, and the pseudo-label teacher checkpoint in a versioned archive.
-2. Record the exact archive filename, download URL/DOI, SHA-256 digest, architecture, and training regime in `manifests/model_registry.csv`.
-3. Verify each checkpoint against the reported test outputs before release.
+```bash
+python scripts/validate_checkpoints.py --weights-dir path/to/checkpoints
+```
 
-**Known provenance issue to resolve:** historical local filenames may not uniquely distinguish baseline and curriculum weights, and earlier evaluation registries may have reversed labels. TransUNet exports also reuse a stage-3-style filename. Do not infer model identity from a filename alone.
+For all three architectures, the historical `Domain` files are baseline and
+the historical `no_Domain` files are curriculum. The canonical files remove
+that ambiguity; model IDs and hashes remain authoritative. Additional phase
+checkpoints and the pseudo-label teacher are not included yet.

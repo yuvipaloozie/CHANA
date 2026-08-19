@@ -29,4 +29,8 @@ The dataset comes from a single study context and may encode stain, acquisition,
 
 ## Provenance requirements
 
-Do not release or deploy a checkpoint until it has a unique model ID, architecture/training-regime label, SHA-256 digest, source code commit, data-manifest checksum, and expected evaluation output. Resolve the known historical filename ambiguity before publication.
+Do not release or deploy a checkpoint until it has a unique model ID,
+architecture/training-regime label, SHA-256 digest, source code commit,
+data-manifest checksum, and expected evaluation output. The six primary hashes
+are now mapped despite their reversed legacy filename suffixes; use the semantic
+registry IDs and canonical names, not the legacy filenames.

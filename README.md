@@ -4,7 +4,7 @@
 
 CHANA is a research pipeline for semantic segmentation of TRAP-stained cultured osteoclasts in bright-field microscopy. It compares U-Net, U-Net++, and TransUNet under conventional expert-real training and a sequential curriculum containing diffusion-derived, copy-paste, pseudo-labeled, and expert-labeled real images. Semantic masks are converted to separated objects for cell counts and morphometric measurements.
 
-> **Prepublication repository.** This branch is being prepared to accompany a manuscript. Model weights, de-identified data/source-data deposits, permanent archive DOI, and the final software license must be added before publication. The current code is for research use and is not a clinical or drug-testing system.
+> **Prepublication repository.** This branch is being prepared to accompany a manuscript. Remaining source data, a permanent archive DOI, and the final software license must be added before publication. The current code is for research use and is not a clinical or drug-testing system.
 
 ## Study at a glance
 
@@ -32,6 +32,7 @@ CHANA/
 ├── notebooks/                # Original Colab notebooks and legacy Python exports
 ├── paper/
 │   ├── expected_outputs/     # Expected manuscript-output inventory
+│   ├── final_assets/         # Final Word panel/table inventory and provenance audit
 │   └── source_data/          # Machine-readable values underlying figures and tables
 ├── sample_data/              # Instructions for a redistributable smoke-test example
 ├── scripts/                  # Command-line inference and validation utilities
@@ -56,17 +57,24 @@ Environment specifications are also provided under [`environment/`](environment/
 
 ## Inference
 
-Place a compatible checkpoint under `models/` and run:
+Place a registered checkpoint under `models/` and select it by semantic model
+ID. The resolver verifies its size and SHA-256 before loading it and accepts
+either the canonical release name or the preserved legacy filename:
 
 ```bash
 python scripts/predict.py \
   --input path/to/image.tif \
   --output-dir outputs/example \
-  --architecture unetpp \
-  --checkpoint models/UNetPlusPlus_checkpoint.weights.h5
+  --model-id unetpp_curriculum \
+  --weights-dir models
 ```
 
-The command writes the foreground probability array, binary mask, watershed object-label image, and object measurements. Checkpoint identities must be verified against `manifests/model_registry.csv`; filenames alone are not sufficient provenance.
+The command writes the foreground probability array, binary mask, watershed
+object-label image, and object measurements. The historical `Domain` and
+`no_Domain` suffixes are reversed for the six primary files, so filenames alone
+are not sufficient provenance. Explicit `--architecture` and `--checkpoint`
+arguments remain available for unregistered development checkpoints but do not
+provide registry hash verification.
 
 ## Reproducing the study
 
@@ -83,6 +91,12 @@ The command writes the foreground probability array, binary mask, watershed obje
 6. Compare regenerated values against `paper/expected_outputs/` and the source-data deposit.
 
 See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) for what is currently runnable and what remains to be deposited.
+
+The final Word documents define the publication panels and target numerical
+values. Their repository representation is tracked under
+[`paper/final_assets/`](paper/final_assets/) without committing the publication
+image binaries. Numerical values are not called reproducible until the source
+CSV/NPZ data reproducing those Word targets is deposited.
 
 ## Scientific scope and limitations
 

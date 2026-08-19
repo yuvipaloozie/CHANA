@@ -1,13 +1,14 @@
 # Sample data
 
-Add one redistributable, de-identified microscopy image and its expected smoke-test outputs here before publication. The example should be explicitly cleared for public redistribution and need not be part of the locked test set.
+`public_example/` contains one cleared 512 x 512 image, expert mask,
+probability map, binary prediction, watershed labels, and overlay. Validate it
+with:
 
-Recommended files:
-
-```text
-sample_image.tif
-expected_mask.png
-expected_objects.csv
+```bash
+python scripts/validate_sample_data.py
 ```
 
-Record the source/license and the checkpoint/version used to create the expected outputs.
+The derived files are internally consistent; exact originating-checkpoint
+linkage remains pending. `ten_image_example/` records a deterministic ten-pair
+sample staged locally from the locked bundle. Its image and mask directories
+remain ignored until redistribution clearance is confirmed.
