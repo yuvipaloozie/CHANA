@@ -1,0 +1,19 @@
+name: chana-tensorflow-training
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - tensorflow==2.15.1
+      - keras-unet-collection==0.1.13
+      - segmentation-models==1.0.1
+      - albumentations==1.4.10
+      - numpy==1.26.4
+      - opencv-python-headless==4.10.0.84
+      - pandas==2.2.2
+      - scikit-image==0.22.0
+      - scipy==1.13.1
+      - matplotlib==3.8.4
+      - seaborn==0.13.2
+      - imagecodecs==2024.6.1

@@ -1,0 +1,41 @@
+experiment: sequential_domain_curriculum
+batch_size: 16
+optimizer: AdamW
+weight_decay: 0.0001
+learning_rate_schedule: cosine_decay
+checkpoint_transfer: sequential_within_architecture
+phases:
+  - phase: 1
+    name: diffusion
+    dataset_size: 3000
+    epochs: 40
+    initial_learning_rate: 0.0001
+    label_source: generated_mask
+  - phase: 2
+    name: copy_paste
+    dataset_size: 1500
+    epochs: 80
+    initial_learning_rate: 0.00005
+    label_source: compositing_mask
+  - phase: 2.5
+    name: pseudo_label
+    dataset_size: 2058
+    epochs: 50
+    initial_learning_rate: 0.00002
+    label_source: fixed_expert_real_finetuned_transunet_teacher
+  - phase: 4
+    name: expert_real
+    dataset_size: 1629
+    epochs: 200
+    initial_learning_rate: 0.00001
+    label_source: expert_semantic_mask
+loss:
+  trusted_labels:
+    name: focal_tversky
+    alpha_false_negative: 0.3
+    beta_false_positive: 0.7
+    gamma: 1.5
+  noisy_labels:
+    name: binary_crossentropy
+    label_smoothing: 0.1
+augmentations: same_as_baseline

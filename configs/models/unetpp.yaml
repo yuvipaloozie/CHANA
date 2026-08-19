@@ -1,0 +1,13 @@
+architecture: unetpp
+framework: tensorflow
+implementation: keras-unet-collection
+input_shape: [512, 512, 3]
+classes: 1
+encoder: ResNet50
+encoder_initialization: imagenet
+filters: [64, 128, 256, 512]
+stack_num_down: 4
+stack_num_up: 4
+batch_normalization: true
+deep_supervision_outputs: 4
+final_output_position: -1

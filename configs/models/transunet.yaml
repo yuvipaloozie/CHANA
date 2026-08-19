@@ -1,0 +1,14 @@
+architecture: transunet
+framework: tensorflow
+input_shape: [512, 512, 3]
+classes: 1
+encoder: EfficientNetB0
+encoder_initialization: imagenet
+transformer:
+  dimension: 384
+  attention_heads: 6
+  layers: 2
+  dropout: 0.1
+group_normalization_groups: 8
+deep_supervision_outputs: 3
+final_output_position: 0
