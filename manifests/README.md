@@ -1,6 +1,11 @@
 # Manifests
 
-These CSV files are intentionally header-only in the scaffold. The publication release must populate them with stable, nonidentifying IDs and relative or archive-resolvable paths.
+The data, split, and domain manifests remain header-only in the scaffold. The
+model registry now contains the six hash-linked primary checkpoints and their
+verified file sizes, SHA-256 digests, misleading legacy names, and canonical
+semantic release names. The publication release must populate
+the remaining manifests with stable, nonidentifying IDs and relative or
+archive-resolvable paths.
 
 - `dataset_manifest.csv`: one row per image-mask pair across all domains.
 - `split_manifest.csv`: the authoritative train/validation/test membership and scan grouping.

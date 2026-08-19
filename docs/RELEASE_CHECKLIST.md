@@ -4,7 +4,7 @@
 
 - [ ] Reconstruct and freeze the exact 1,629/281/281 expert-real split.
 - [ ] Add `scan_id` and verify no test/development scan overlap.
-- [ ] Resolve baseline/curriculum checkpoint-label ambiguity.
+- [x] Resolve primary baseline/curriculum checkpoint labels by exact hash links to the supplied evaluation outputs; retain the reversed legacy filenames in provenance.
 - [ ] Calculate and record SHA-256 for every released artifact.
 - [ ] Record training seeds, selected epochs, and checkpoint monitors.
 
@@ -12,8 +12,10 @@
 
 - [ ] Populate all manifests and run `validate_manifests.py --require-populated`.
 - [ ] Deposit machine-readable source data for all main and supplemental figures/tables.
+- [x] Inventory every panel/table in the final Word documents without committing publication image binaries.
+- [ ] Deposit source CSVs that reproduce the authoritative final Word values.
 - [ ] Add a source-data dictionary and units.
-- [ ] Add a cleared sample image and expected outputs.
+- [ ] Link the cleared six-TIFF sample bundle to its exact originating checkpoint.
 - [ ] Verify manuscript numbers against deposited source data.
 
 ## Software

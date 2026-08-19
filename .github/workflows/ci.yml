@@ -23,5 +23,7 @@ jobs:
         run: python scripts/validate_manifests.py
       - name: Validate deposited source data
         run: python scripts/validate_source_data.py
+      - name: Validate cleared public sample
+        run: python scripts/validate_sample_data.py --require-cleared
       - name: Run tests
         run: python -m pytest

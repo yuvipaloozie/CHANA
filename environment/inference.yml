@@ -5,11 +5,12 @@ dependencies:
   - python=3.10
   - pip
   - pip:
-      - tensorflow==2.15.1
+      - tensorflow==2.16.2
+      - keras==3.12.4
       - keras-unet-collection==0.1.13
       - numpy==1.26.4
       - opencv-python-headless==4.10.0.84
-      - pandas==2.2.2
-      - scikit-image==0.22.0
-      - scipy==1.13.1
-      - PyYAML==6.0.2
+      - pandas==2.3.3
+      - scikit-image==0.23.2
+      - scipy==1.15.3
+      - PyYAML==6.0.3

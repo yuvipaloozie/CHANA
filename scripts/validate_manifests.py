@@ -32,6 +32,15 @@ EXPECTED_COUNTS = {
     "expert_test": 281,
 }
 
+PRIMARY_MODEL_IDS = {
+    "unet_baseline",
+    "unet_curriculum",
+    "unetpp_baseline",
+    "unetpp_curriculum",
+    "transunet_baseline",
+    "transunet_curriculum",
+}
+
 
 def _blank(series: pd.Series) -> pd.Series:
     return series.fillna("").astype(str).str.strip().eq("")
@@ -111,6 +120,40 @@ def validate(require_populated: bool = False, manifest_dir: Path = MANIFEST_DIR)
         bad_hash = ~registry["sha256"].fillna("").astype(str).str.fullmatch(re.compile(r"[0-9a-fA-F]{64}"))
         if bad_hash.any():
             problems.append("model_registry.csv: sha256 values must be 64 hexadecimal characters")
+        if "bytes" in registry and (
+            pd.to_numeric(registry["bytes"], errors="coerce").fillna(0) <= 0
+        ).any():
+            problems.append("model_registry.csv: bytes values must be positive integers")
+        checkpoint_files = registry["checkpoint_file"].fillna("").astype(str)
+        if checkpoint_files.duplicated().any():
+            problems.append("model_registry.csv: checkpoint_file values are not unique")
+        if checkpoint_files.map(lambda value: Path(value).name != value).any():
+            problems.append("model_registry.csv: checkpoint_file values must be filenames")
+        if "legacy_checkpoint_file" in registry:
+            legacy = registry["legacy_checkpoint_file"].fillna("").astype(str)
+            if legacy.str.strip().eq("").any():
+                problems.append(
+                    "model_registry.csv: legacy_checkpoint_file values must not be blank"
+                )
+            if legacy.map(lambda value: Path(value).name != value).any():
+                problems.append(
+                    "model_registry.csv: legacy_checkpoint_file values must be filenames"
+                )
+        if require_populated:
+            missing_models = PRIMARY_MODEL_IDS - set(registry["model_id"])
+            if missing_models:
+                problems.append(
+                    "model_registry.csv: missing primary model IDs "
+                    + ", ".join(sorted(missing_models))
+                )
+            if "archive_url" not in registry or _blank(registry["archive_url"]).any():
+                problems.append("model_registry.csv: archive_url values are required for release")
+            if "load_status" not in registry or (
+                registry["load_status"].astype(str) != "architecture_load_verified"
+            ).any():
+                problems.append(
+                    "model_registry.csv: every checkpoint must be architecture-load verified"
+                )
 
     if dataset is not None and not dataset.empty and split is not None and not split.empty:
         expert_ids = set(dataset.loc[dataset["domain"] == "expert_real", "image_id"])

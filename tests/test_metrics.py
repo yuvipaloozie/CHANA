@@ -1,6 +1,12 @@
 import numpy as np
 
-from chana.metrics import binary_dice, binary_iou, centroid_match_scores, hd95
+from chana.metrics import (
+    binary_average_precision,
+    binary_dice,
+    binary_iou,
+    centroid_match_scores,
+    hd95,
+)
 
 
 def test_identical_masks_have_perfect_pixel_metrics():
@@ -23,3 +29,16 @@ def test_centroid_matching_uses_distance_gate():
 
 def test_one_empty_mask_has_undefined_hd95():
     assert np.isnan(hd95(np.zeros((8, 8)), np.ones((8, 8))))
+
+
+def test_average_precision_matches_hand_calculated_ranking():
+    reference = np.array([0, 1, 1, 0], dtype=np.uint8)
+    probability = np.array([0.1, 0.9, 0.4, 0.8], dtype=float)
+    assert binary_average_precision(reference, probability) == np.mean([1.0, 2 / 3])
+    assert np.isnan(binary_average_precision(np.zeros(4), probability))
+
+
+def test_empty_object_sets_are_a_perfect_empty_case():
+    scores = centroid_match_scores(np.empty((0, 2)), np.empty((0, 2)))
+    assert scores.true_positive == scores.false_positive == scores.false_negative == 0
+    assert scores.precision == scores.recall == scores.f1 == 1.0

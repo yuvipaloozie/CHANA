@@ -1,4 +1,7 @@
 name: chana-tensorflow-training
+# Provisional only: the historical Colab exports installed unpinned TensorFlow.
+# This file has not yet been validated for end-to-end retraining, and its
+# TensorFlow 2.15/Keras 2 stack does not load the supplied Keras 3 checkpoints.
 channels:
   - conda-forge
 dependencies:

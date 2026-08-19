@@ -17,6 +17,7 @@ outputs/
 checkpoints/
 weights/
 models/*.h5
+!models/*.weights.h5
 models/*.keras
 models/*.ckpt*
 models/*.pt
@@ -27,3 +28,7 @@ models/*.onnx
 
 # Local manifests may contain machine-specific paths or restricted identifiers
 manifests/local/
+
+# Locally staged locked-test examples; remove only after redistribution clearance
+sample_data/ten_image_example/images/
+sample_data/ten_image_example/masks/

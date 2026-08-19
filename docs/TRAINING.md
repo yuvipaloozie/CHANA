@@ -44,3 +44,15 @@ Validation data may be used for checkpoint selection and threshold specification
 ## Reproduction commands
 
 The current training notebooks are historical Colab exports rather than fully parameterized command-line programs. Exact one-command retraining remains a release blocker. Until refactoring is completed, run the appropriate environment and legacy export with paths replaced by manifest-driven loaders, then document the checkpoint SHA-256 and selected epoch.
+
+The essential exports are:
+
+- `chana_unet_without_domains.py` and `chana_unet_with_domains.py`;
+- `chana_unetpp_without_domains.py` and `chana_unetpp_with_domains.py`;
+- `chana_transunet_without_domains.py` and `chana_transunet_with_domains.py`;
+- `chana_diffusionv2.py`, `chana_copy_paste_gen.py`, and
+  `chana_pseudo_labelling.py` for the curriculum data phases.
+
+All are under `notebooks/legacy/python_exports/` and are preserved as the
+original computational record. They retain Colab `!pip` cells; after ignoring
+those notebook-only lines, all ten exports pass Python syntax compilation.
