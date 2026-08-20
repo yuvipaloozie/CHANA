@@ -4,20 +4,19 @@
 
 | Domain/split | Images | Label source |
 |---|---:|---|
-| Diffusion-derived | 3,000 | Generated structural masks |
-| Copy-paste | 1,500 | Masks transformed with composited objects |
+| Diffusion-derived | 3,000 | Generated masks |
+| Copy-paste | 1,500 | Masks transformed with copy-paste scene objects |
 | Pseudo-labeled real | 2,058 | Fixed expert-real-fine-tuned TransUNet teacher |
 | Expert-real training | 1,629 | Expert semantic masks |
 | Expert-real validation | 281 | Expert semantic masks |
 | Expert-real test | 281 | Expert semantic masks |
 
-The expert-real total is 2,191 image-mask pairs. Curriculum-domain counts are exposures and must not be added to the expert-real total as if all observations were independently collected biological samples.
+The expert-real total is 2,191 image-mask pairs. Curriculum-domain counts are exposures and must not be added to the expert-real total as if all observations were independently collected samples.
 
 ## Required identifiers
 
 Every released record must receive a stable `image_id`. Expert-real images should also receive a `scan_id` so the stated original-scan independence of the test set can be checked. Synthetic and pseudo-labeled records require a `source_id` that links them to the generating image, background, object bank, teacher checkpoint, or seed as applicable.
 
-The final manifests, not directory enumeration order, are authoritative. Paths should be relative to the deposited archive or resolvable URLs. Do not publish local Google Drive paths.
 
 ## Split caution
 
