@@ -19,6 +19,5 @@ authors:
 repository-code: "https://github.com/yuvipaloozie/CHANA"
 license: NOASSERTION
 abstract: >-
-  Research code for semantic segmentation, watershed-based object separation,
-  and morphometric quantification of TRAP-stained cultured osteoclasts using
-  baseline and sequential domain-curriculum training.
+  Research code for semantic segmentation, separation, and quantification of TRAP-stained cultured osteoclasts using
+  sequential domain-curriculum training.
