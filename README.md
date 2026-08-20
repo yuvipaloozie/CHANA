@@ -60,6 +60,49 @@ to regenerate confidence intervals and plots.
 
 ## Selected results and interpretation
 
+<details open>
+<summary><strong>Domain curriculum and six-model evaluation panels (Figures 2B–4C)</strong></summary>
+
+<h4>Curriculum-domain feature space</h4>
+<table>
+  <tr>
+    <td width="50%" align="center" bgcolor="#ffffff">
+      <img src="paper/figures/figure_2b_domain_umap.png" alt="UMAP projection of the four curriculum domains" width="100%"><br>
+      <sub><strong>Figure 2B.</strong> UMAP projection of fixed ResNet-50 feature embeddings from the four curriculum domains.</sub>
+    </td>
+    <td width="50%" align="center" bgcolor="#ffffff">
+      <img src="paper/figures/figure_2c_feature_distance.png" alt="Feature distance from generated domains to expert-real images" width="100%"><br>
+      <sub><strong>Figure 2C.</strong> Feature-space distance from non-real domains to expert-real images.</sub>
+    </td>
+  </tr>
+</table>
+
+<h4>Sequential curriculum checkpoints</h4>
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="paper/figures/figure_3a_curriculum_iou.png" alt="U-Net++ IoU across curriculum stages" width="100%"><br><sub><strong>Figure 3A.</strong> Mean IoU.</sub></td>
+    <td width="50%" align="center"><img src="paper/figures/figure_3b_curriculum_dice.png" alt="U-Net++ Dice across curriculum stages" width="100%"><br><sub><strong>Figure 3B.</strong> Mean Dice.</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><img src="paper/figures/figure_3c_curriculum_object_f1.png" alt="U-Net++ object F1 across curriculum stages" width="100%"><br><sub><strong>Figure 3C.</strong> Mean object F1.</sub></td>
+    <td width="50%" align="center"><img src="paper/figures/figure_3d_curriculum_count_mae.png" alt="U-Net++ count mean absolute error across curriculum stages" width="100%"><br><sub><strong>Figure 3D.</strong> Mean absolute count error; lower is better.</sub></td>
+  </tr>
+</table>
+
+<h4>Held-out segmentation performance</h4>
+<p align="center">
+  <img src="paper/figures/figure_4a_pixel_precision_recall.png" alt="Pixel precision-recall curves for all six model configurations" width="560"><br>
+  <sub><strong>Figure 4A.</strong> Pixel precision-recall curves for all six model configurations.</sub>
+</p>
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="paper/figures/figure_4b_iou_distribution.png" alt="Image-level IoU distributions for all six model configurations" width="100%"><br><sub><strong>Figure 4B.</strong> Image-level IoU distributions.</sub></td>
+    <td width="50%" align="center"><img src="paper/figures/figure_4c_hd95_distribution.png" alt="Finite HD95 distributions for all six model configurations" width="100%"><br><sub><strong>Figure 4C.</strong> Finite HD95 distributions; lower is better.</sub></td>
+  </tr>
+</table>
+
+</details>
+
 <p align="center">
   <img src="paper/figures/supplementary_figure_s4_model_interpretation.png" alt="Curriculum U-Net++ input, expert mask, foreground probability, probability entropy, and gradient activation" width="100%">
 </p>
