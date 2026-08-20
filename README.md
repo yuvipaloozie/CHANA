@@ -3,7 +3,7 @@
 **Cell Histology Automated Neural Network Analyzer**
 
 <p align="left">
-  <a href="https://github.com/yuvipaloozie/CHANA/actions/workflows/ci.yml"><img alt="CI status" src="https://img.shields.io/github/actions/workflow/status/yuvipaloozie/CHANA/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&label=CI" height="30"></a>
+  <a href="https://github.com/yuvipaloozie/CHANA/actions/workflows/ci.yml">
   <img alt="Python 3.10" src="https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white" height="30">
   <img alt="TensorFlow 2.16.2" src="https://img.shields.io/badge/TensorFlow-2.16.2-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" height="30">
   <img alt="Git LFS model weights" src="https://img.shields.io/badge/Model_Weights-Git_LFS-F64935?style=for-the-badge&logo=git&logoColor=white" height="30">
