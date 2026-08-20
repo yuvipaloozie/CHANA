@@ -19,6 +19,42 @@ FINAL_FIGURES = {
         "fe4ae9ef77de5fe33e53b07f88730584735012f483eb9e8e63188e4fe8fdb8c2",
         (1200, 719),
     ),
+    "figure_2b_domain_umap.png": (
+        "848c4ab034975a454931b28c61454fcb36702defbe49a92a27c4d4e1830deee8",
+        (336, 171),
+    ),
+    "figure_2c_feature_distance.png": (
+        "d5d3d12f83c6c73d0cd6a471a8b6267c36b6a9ebf1dfbcd93a5c512253a0a478",
+        (454, 394),
+    ),
+    "figure_3a_curriculum_iou.png": (
+        "0d296e296f4def5227ce984bd798f293332a2ce1f6780458cd7af215a0699956",
+        (509, 346),
+    ),
+    "figure_3b_curriculum_dice.png": (
+        "622e7fc52fc4e8ee4655481fe3c5577440c96768c5348ffa8d0d5391338d05df",
+        (539, 358),
+    ),
+    "figure_3c_curriculum_object_f1.png": (
+        "074064f8206184a7f9862f652b0d58c9ab2d18ce06f48a9ee6fce7c14c7d6eaa",
+        (534, 361),
+    ),
+    "figure_3d_curriculum_count_mae.png": (
+        "1bd3f3135cab572346af9bb7eb3b86f6ec6fc5db4266d1b71b3a6c9636964d80",
+        (492, 335),
+    ),
+    "figure_4a_pixel_precision_recall.png": (
+        "41fe9af7d7260dd6157950d97cea6033eb3d9b64d352aad95e202d6114ebd7a2",
+        (555, 290),
+    ),
+    "figure_4b_iou_distribution.png": (
+        "45577a0265b7a50bf555a83e1ecf7ac5914aa59fbeb43e4aa7117a3cc3dc13e1",
+        (424, 380),
+    ),
+    "figure_4c_hd95_distribution.png": (
+        "7984b0998406fe6a3160aede690cecd307544c96b4275494556759d2beec4aab",
+        (419, 368),
+    ),
     "figure_4d_paired_iou_difference.png": (
         "e97d3bbb19390dd09a349cb9f166953c90b55cfc6da6280df1521795a1a743e1",
         (437, 314),

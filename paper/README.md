@@ -10,7 +10,15 @@ machine-readable form. The manuscript draft itself is not deposited here.
 | Manuscript item | Repository file | Scope |
 |---|---|---|
 | Figure 1 | [`figures/figure_1_overview.png`](figures/figure_1_overview.png) | Final workflow overview panel |
-| Figure 4A | [`source_data/Figure_4A_pixel_PR_curves_full.csv.gz`](source_data/Figure_4A_pixel_PR_curves_full.csv.gz) | Full pixel precision-recall coordinates for all six models |
+| Figure 2B | [`figures/figure_2b_domain_umap.png`](figures/figure_2b_domain_umap.png) | ResNet-50 feature-space UMAP of the four curriculum domains |
+| Figure 2C | [`figures/figure_2c_feature_distance.png`](figures/figure_2c_feature_distance.png) | Feature-space distance to expert-real images |
+| Figure 3A | [`figures/figure_3a_curriculum_iou.png`](figures/figure_3a_curriculum_iou.png) | U-Net++ mean IoU across curriculum stages |
+| Figure 3B | [`figures/figure_3b_curriculum_dice.png`](figures/figure_3b_curriculum_dice.png) | U-Net++ mean Dice across curriculum stages |
+| Figure 3C | [`figures/figure_3c_curriculum_object_f1.png`](figures/figure_3c_curriculum_object_f1.png) | U-Net++ mean object F1 across curriculum stages |
+| Figure 3D | [`figures/figure_3d_curriculum_count_mae.png`](figures/figure_3d_curriculum_count_mae.png) | U-Net++ mean count MAE across curriculum stages |
+| Figure 4A | [`panel`](figures/figure_4a_pixel_precision_recall.png); [`source CSV`](source_data/Figure_4A_pixel_PR_curves_full.csv.gz) | Pixel precision-recall curves and full coordinates for all six models |
+| Figure 4B | [`figures/figure_4b_iou_distribution.png`](figures/figure_4b_iou_distribution.png) | Image-level IoU distributions for all six models |
+| Figure 4C | [`figures/figure_4c_hd95_distribution.png`](figures/figure_4c_hd95_distribution.png) | Finite HD95 distributions for all six models |
 | Figure 4D | [`figures/figure_4d_paired_iou_difference.png`](figures/figure_4d_paired_iou_difference.png) | Paired curriculum-minus-baseline mean IoU differences |
 | Figure 6A | [`figures/figure_6a_object_recall_by_area.png`](figures/figure_6a_object_recall_by_area.png) | Object recall across reference-object area strata |
 | Figure 6B | [`figures/figure_6b_iou_by_density.png`](figures/figure_6b_iou_by_density.png) | Image-level IoU across reference-count density strata |
