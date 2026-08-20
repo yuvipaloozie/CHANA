@@ -2,9 +2,9 @@
 
 | Domain or split | Images | Label source |
 |---|---:|---|
-| Diffusion-derived | 3,000 | Generated structural masks |
-| Copy-paste | 1,500 | Masks transformed with composited objects |
-| Pseudo-labelled real | 2,058 | Fixed TransUNet teacher |
+| Diffusion-derived | 3,000 | Generated masks |
+| Copy-paste | 1,500 | Masks transformed with copy-paste scene objects |
+| Pseudo-labeled real | 2,058 | Fixed expert-real-fine-tuned TransUNet teacher |
 | Expert-real training | 1,629 | Expert semantic masks |
 | Expert-real validation | 281 | Expert semantic masks |
 | Expert-real test | 281 | Expert semantic masks |
