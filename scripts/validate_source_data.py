@@ -10,9 +10,18 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "paper" / "source_data"
+TABLES = ROOT / "paper" / "tables"
 PR_FILE = SOURCE / "Figure_4A_pixel_PR_curves_full.csv.gz"
 PR_SHA256 = "ceb5239551cf27881be7eef44ec2971a7f2342b6eae5a93cee402e9692943b5b"
 TABLE_S3_SHA256 = "18cc940976b5d7adb29db33f2c8aae01e34841d3d78ca7677fd38c6a9b10cc04"
+FIGURE_1_SHA256 = "fe4ae9ef77de5fe33e53b07f88730584735012f483eb9e8e63188e4fe8fdb8c2"
+FINAL_TABLE_SHA256 = {
+    "main_table_1.csv": "32a4a37659f23ddc5a958327d3c29f8e0a39960489a5c3a6e7033b59aad6e6d5",
+    "main_table_2.csv": "60675a01b9d8e063187d64547976531f59cc6c199b9546d96c1b64158fc443d4",
+    "supplementary_table_s1.csv": "3a960276d328c4f00ee08f141a4d519a0e55a5cb987d9d4bf3d495124f6fcd71",
+    "supplementary_table_s2.csv": "e0b7a18f0903ab36438d53544ee6f7d3839ecd11ccfc718c5005e5c5692ccce8",
+    "supplementary_table_s3.csv": TABLE_S3_SHA256,
+}
 PR_COLUMNS = [
     "Recall_UNet_Baseline", "Precision_UNet_Baseline",
     "Recall_UNet_Curriculum", "Precision_UNet_Curriculum",
@@ -42,7 +51,6 @@ TABLE_S2_COLUMNS = [
     "Architecture", "Encoder", "Input shape", "Trainable parameters",
     "Nontrainable parameters", "Checkpoint size (MB)", "Mean seconds per image",
 ]
-INDEX_COLUMNS = ["file", "bytes", "sha256", "manuscript_item", "content"]
 
 
 def sha256(path: Path) -> str:
@@ -61,15 +69,16 @@ def read_csv(path: Path, expected_columns: list[str]) -> list[dict[str, str]]:
         return list(reader)
 
 
-def validate_final_asset_indexes() -> None:
-    assets = ROOT / "paper" / "final_assets"
+def validate_final_tables() -> None:
     table_paths = [
-        (assets / "reference_transcriptions" / "Main_Table_1_from_final_Word.csv", TABLE_1_COLUMNS, 6),
-        (assets / "reference_transcriptions" / "Main_Table_2_from_final_Word.csv", TABLE_2_COLUMNS, 6),
-        (assets / "reference_transcriptions" / "Supplementary_Table_S1_from_final_Word.csv", TABLE_S1_COLUMNS, 4),
-        (assets / "reference_transcriptions" / "Supplementary_Table_S2_from_final_Word.csv", TABLE_S2_COLUMNS, 3),
+        (TABLES / "main_table_1.csv", TABLE_1_COLUMNS, 6),
+        (TABLES / "main_table_2.csv", TABLE_2_COLUMNS, 6),
+        (TABLES / "supplementary_table_s1.csv", TABLE_S1_COLUMNS, 4),
+        (TABLES / "supplementary_table_s2.csv", TABLE_S2_COLUMNS, 3),
     ]
     for path, columns, expected_rows in table_paths:
+        if sha256(path) != FINAL_TABLE_SHA256[path.name]:
+            raise SystemExit(f"{path.relative_to(ROOT)} differs from the finalized table")
         rows = read_csv(path, columns)
         if len(rows) != expected_rows:
             raise SystemExit(
@@ -82,27 +91,22 @@ def validate_final_asset_indexes() -> None:
         ):
             raise SystemExit(f"{path.relative_to(ROOT)} contains unbalanced parentheses")
 
-    for index_name in ["figure_panel_manifest.csv", "table_manifest.csv"]:
-        with (assets / index_name).open(newline="", encoding="utf-8-sig") as handle:
-            rows = list(csv.DictReader(handle))
-        for row in rows:
-            source = row.get("source_data", "").strip()
-            if source and not (ROOT / source).exists():
-                raise SystemExit(f"{index_name} points to missing source_data: {source}")
 
 
-def validate_source_index() -> None:
-    rows = read_csv(SOURCE / "INDEX.csv", INDEX_COLUMNS)
-    if not rows:
-        raise SystemExit("paper/source_data/INDEX.csv is empty")
-    for row in rows:
-        path = SOURCE / row["file"]
-        if not path.is_file():
-            raise SystemExit(f"INDEX.csv points to missing file: {row['file']}")
-        if path.stat().st_size != int(row["bytes"]):
-            raise SystemExit(f"INDEX.csv byte size mismatch: {row['file']}")
-        if sha256(path) != row["sha256"]:
-            raise SystemExit(f"INDEX.csv SHA-256 mismatch: {row['file']}")
+def validate_figure_1() -> None:
+    path = ROOT / "paper" / "figures" / "figure_1_overview.png"
+    if not path.is_file():
+        raise SystemExit("paper/figures/figure_1_overview.png is missing")
+    if sha256(path) != FIGURE_1_SHA256:
+        raise SystemExit("Figure 1 differs from the finalized overview panel")
+    with path.open("rb") as handle:
+        header = handle.read(24)
+    if header[:8] != b"\x89PNG\r\n\x1a\n":
+        raise SystemExit("Figure 1 is not a valid PNG")
+    width = int.from_bytes(header[16:20], "big")
+    height = int.from_bytes(header[20:24], "big")
+    if (width, height) != (1200, 719):
+        raise SystemExit(f"Figure 1 dimensions are {(width, height)}, expected (1200, 719)")
 
 
 def main():
@@ -116,7 +120,7 @@ def main():
     if pr_rows != 522_652:
         raise SystemExit(f"Figure 4A PR source-data row count is {pr_rows}, expected 522652")
 
-    table_s3 = SOURCE / "Table_S3_paired_statistics.csv"
+    table_s3 = TABLES / "supplementary_table_s3.csv"
     if sha256(table_s3) != TABLE_S3_SHA256:
         raise SystemExit("Table S3 source-data checksum mismatch")
     with table_s3.open(newline="") as handle:
@@ -126,9 +130,9 @@ def main():
         stats = list(reader)
     if len(stats) != 12 or any(row["n_paired_images"] != "281" for row in stats):
         raise SystemExit("Table S3 source-data dimensions mismatch")
-    validate_source_index()
-    validate_final_asset_indexes()
-    print("Source-data files and final-asset indexes validated.")
+    validate_final_tables()
+    validate_figure_1()
+    print("Deposited source data, final tables, and Figure 1 validated.")
 
 
 if __name__ == "__main__":
