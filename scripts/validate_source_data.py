@@ -14,7 +14,28 @@ TABLES = ROOT / "paper" / "tables"
 PR_FILE = SOURCE / "Figure_4A_pixel_PR_curves_full.csv.gz"
 PR_SHA256 = "ceb5239551cf27881be7eef44ec2971a7f2342b6eae5a93cee402e9692943b5b"
 TABLE_S3_SHA256 = "18cc940976b5d7adb29db33f2c8aae01e34841d3d78ca7677fd38c6a9b10cc04"
-FIGURE_1_SHA256 = "fe4ae9ef77de5fe33e53b07f88730584735012f483eb9e8e63188e4fe8fdb8c2"
+FINAL_FIGURES = {
+    "figure_1_overview.png": (
+        "fe4ae9ef77de5fe33e53b07f88730584735012f483eb9e8e63188e4fe8fdb8c2",
+        (1200, 719),
+    ),
+    "figure_4d_paired_iou_difference.png": (
+        "e97d3bbb19390dd09a349cb9f166953c90b55cfc6da6280df1521795a1a743e1",
+        (437, 314),
+    ),
+    "figure_6a_object_recall_by_area.png": (
+        "462b935677475e40f6b0c046e788deb352491847659f702675127bb1e2972ed9",
+        (544, 340),
+    ),
+    "figure_6b_iou_by_density.png": (
+        "207b89db76ae92f6cd2583cff9d617c9a1c0483da1ec447d2c128ea56af648c1",
+        (561, 234),
+    ),
+    "supplementary_figure_s4_model_interpretation.png": (
+        "de1f63e419f010ffa93bbc23fced55e854541bbfabd0cc1ed2b45f0570ab9a18",
+        (1101, 255),
+    ),
+}
 FINAL_TABLE_SHA256 = {
     "main_table_1.csv": "32a4a37659f23ddc5a958327d3c29f8e0a39960489a5c3a6e7033b59aad6e6d5",
     "main_table_2.csv": "60675a01b9d8e063187d64547976531f59cc6c199b9546d96c1b64158fc443d4",
@@ -93,20 +114,26 @@ def validate_final_tables() -> None:
 
 
 
-def validate_figure_1() -> None:
-    path = ROOT / "paper" / "figures" / "figure_1_overview.png"
-    if not path.is_file():
-        raise SystemExit("paper/figures/figure_1_overview.png is missing")
-    if sha256(path) != FIGURE_1_SHA256:
-        raise SystemExit("Figure 1 differs from the finalized overview panel")
-    with path.open("rb") as handle:
-        header = handle.read(24)
-    if header[:8] != b"\x89PNG\r\n\x1a\n":
-        raise SystemExit("Figure 1 is not a valid PNG")
-    width = int.from_bytes(header[16:20], "big")
-    height = int.from_bytes(header[20:24], "big")
-    if (width, height) != (1200, 719):
-        raise SystemExit(f"Figure 1 dimensions are {(width, height)}, expected (1200, 719)")
+def validate_final_figures() -> None:
+    figure_dir = ROOT / "paper" / "figures"
+    for filename, (expected_hash, expected_size) in FINAL_FIGURES.items():
+        path = figure_dir / filename
+        if not path.is_file():
+            raise SystemExit(f"paper/figures/{filename} is missing")
+        if sha256(path) != expected_hash:
+            raise SystemExit(f"paper/figures/{filename} differs from the supplied panel")
+        with path.open("rb") as handle:
+            header = handle.read(24)
+        if header[:8] != b"\x89PNG\r\n\x1a\n":
+            raise SystemExit(f"paper/figures/{filename} is not a valid PNG")
+        size = (
+            int.from_bytes(header[16:20], "big"),
+            int.from_bytes(header[20:24], "big"),
+        )
+        if size != expected_size:
+            raise SystemExit(
+                f"paper/figures/{filename} dimensions are {size}, expected {expected_size}"
+            )
 
 
 def main():
@@ -131,8 +158,8 @@ def main():
     if len(stats) != 12 or any(row["n_paired_images"] != "281" for row in stats):
         raise SystemExit("Table S3 source-data dimensions mismatch")
     validate_final_tables()
-    validate_figure_1()
-    print("Deposited source data, final tables, and Figure 1 validated.")
+    validate_final_figures()
+    print("Deposited source data, final tables, and selected figures validated.")
 
 
 if __name__ == "__main__":

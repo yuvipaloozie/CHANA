@@ -2,11 +2,13 @@
 
 **Cell Histology Automated Neural Network Analyzer**
 
-[![CI](https://github.com/yuvipaloozie/CHANA/actions/workflows/ci.yml/badge.svg)](https://github.com/yuvipaloozie/CHANA/actions/workflows/ci.yml)
-![Python 3.10](https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white)
-![TensorFlow 2.16.2](https://img.shields.io/badge/TensorFlow-2.16.2-FF6F00?logo=tensorflow&logoColor=white)
-![Git LFS](https://img.shields.io/badge/model_weights-Git_LFS-F64935?logo=git&logoColor=white)
-![Research software](https://img.shields.io/badge/status-research_software-4C72B0)
+<p align="left">
+  <a href="https://github.com/yuvipaloozie/CHANA/actions/workflows/ci.yml"><img alt="CI status" src="https://img.shields.io/github/actions/workflow/status/yuvipaloozie/CHANA/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&label=CI" height="30"></a>
+  <img alt="Python 3.10" src="https://img.shields.io/badge/Python-3.10-3776AB?style=for-the-badge&logo=python&logoColor=white" height="30">
+  <img alt="TensorFlow 2.16.2" src="https://img.shields.io/badge/TensorFlow-2.16.2-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white" height="30">
+  <img alt="Git LFS model weights" src="https://img.shields.io/badge/Model_Weights-Git_LFS-F64935?style=for-the-badge&logo=git&logoColor=white" height="30">
+  <img alt="Research software" src="https://img.shields.io/badge/Status-Research_Software-4C72B0?style=for-the-badge" height="30">
+</p>
 
 CHANA is a semantic-segmentation and morphometric-analysis workflow for
 TRAP-stained bright-field osteoclast cultures. Manual delineation and counting
@@ -55,6 +57,35 @@ are in [`paper/README.md`](paper/README.md).
 All configurations were evaluated on the same 281 held-out image tiles. These
 are manuscript summary values, not a substitute for the image-level data needed
 to regenerate confidence intervals and plots.
+
+## Selected results and interpretation
+
+<p align="center">
+  <img src="paper/figures/supplementary_figure_s4_model_interpretation.png" alt="Curriculum U-Net++ input, expert mask, foreground probability, probability entropy, and gradient activation" width="100%">
+</p>
+<p align="center"><sub><strong>Exploratory model-output interpretation.</strong> A representative curriculum U-Net++ field is shown with its expert mask, foreground probability, probability entropy, and gradient-based activation.</sub></p>
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="paper/figures/figure_6a_object_recall_by_area.png" alt="Object recall by reference-object area" width="100%"><br>
+      <sub><strong>Object recall by area.</strong> Recall across small, intermediate, and large expert-mask-derived objects.</sub>
+    </td>
+    <td width="50%" align="center">
+      <img src="paper/figures/figure_6b_iou_by_density.png" alt="Image-level IoU by reference-object density" width="100%"><br>
+      <sub><strong>IoU by field density.</strong> Image-level IoU across low, moderate, and dense reference-count strata.</sub>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="paper/figures/figure_4d_paired_iou_difference.png" alt="Paired curriculum-minus-baseline mean IoU differences" width="440"><br>
+  <sub><strong>Paired curriculum effect.</strong> Curriculum-minus-baseline mean IoU differences with 95% image-bootstrap intervals.</sub>
+</p>
+
+These panels are descriptive views of the finalized analyses. Exact reported
+values remain in [`paper/README.md`](paper/README.md) and its linked CSVs; plots
+should not be used to recover numerical values.
 
 ## Quick start
 

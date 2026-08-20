@@ -1,9 +1,9 @@
 # Manuscript results
 
 This page is the compact repository representation of the finalized Word
-tables. The Word documents control the reported values and Figure 1 panel; the
-linked CSVs provide the same values in machine-readable form. The manuscript
-draft itself is not deposited here.
+tables and selected figure panels. The Word documents control the reported
+values and panel selection; the linked CSVs provide the table values in
+machine-readable form. The manuscript draft itself is not deposited here.
 
 ## Available figures and data
 
@@ -11,13 +11,17 @@ draft itself is not deposited here.
 |---|---|---|
 | Figure 1 | [`figures/figure_1_overview.png`](figures/figure_1_overview.png) | Final workflow overview panel |
 | Figure 4A | [`source_data/Figure_4A_pixel_PR_curves_full.csv.gz`](source_data/Figure_4A_pixel_PR_curves_full.csv.gz) | Full pixel precision-recall coordinates for all six models |
+| Figure 4D | [`figures/figure_4d_paired_iou_difference.png`](figures/figure_4d_paired_iou_difference.png) | Paired curriculum-minus-baseline mean IoU differences |
+| Figure 6A | [`figures/figure_6a_object_recall_by_area.png`](figures/figure_6a_object_recall_by_area.png) | Object recall across reference-object area strata |
+| Figure 6B | [`figures/figure_6b_iou_by_density.png`](figures/figure_6b_iou_by_density.png) | Image-level IoU across reference-count density strata |
+| Figure S4 | [`figures/supplementary_figure_s4_model_interpretation.png`](figures/supplementary_figure_s4_model_interpretation.png) | Exploratory model-output interpretation |
 | Main Table 1 | [`tables/main_table_1.csv`](tables/main_table_1.csv) | Pixel and boundary metrics |
 | Main Table 2 | [`tables/main_table_2.csv`](tables/main_table_2.csv) | Object and count metrics |
 | Supplementary Table S1 | [`tables/supplementary_table_s1.csv`](tables/supplementary_table_s1.csv) | Curriculum schedule |
 | Supplementary Table S2 | [`tables/supplementary_table_s2.csv`](tables/supplementary_table_s2.csv) | Architecture and timing details |
 | Supplementary Table S3 | [`tables/supplementary_table_s3.csv`](tables/supplementary_table_s3.csv) | Paired baseline-versus-curriculum statistics |
 
-The remaining final plots are not deposited as publication images. Their
+The other final plots are not deposited as publication images. Their
 underlying CSV/NPZ data can be added here when exported from the original
 analysis files; numerical claims should not be reconstructed by digitizing a
 plot.
