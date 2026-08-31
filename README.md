@@ -13,9 +13,9 @@
 CHANA is a semantic-segmentation and morphometric-analysis workflow for
 TRAP-stained bright-field osteoclast cultures. Manual counting and segmentation
 of mature osteoclasts is time-consuming and observer-dependent. 
-Deep learning techniques to automate costeoclast segmentation tasks, specifically, 
+Deep learning techniques to automate osteoclast segmentation tasks 
 require significant volumes of source data to learn the diverse presentations 
-of multinucleated osteoclasts.  CHANA tests whether sequential training on
+of these multinucleated cells.  CHANA tests whether sequential training on
 diffusion-derived, copy-paste, pseudo-labelled, and expert-labelled images can
 improve performance when expert hand-annotation of osteoclasts is limited.
 
