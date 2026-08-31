@@ -189,9 +189,8 @@ Use `--input-stage preprocessed` for images that have already passed through V9.
 | `transunet_baseline` | TransUNet / EfficientNetB0 | Expert-real only | `transunet_baseline.weights.h5` |
 | `transunet_curriculum` | TransUNet / EfficientNetB0 | Sequential curriculum | `transunet_curriculum.weights.h5` |
 
-The canonical names correct the reversed historical `Domain`/`no_Domain`
-filenames. [`manifests/model_registry.csv`](manifests/model_registry.csv) is the
-single authoritative mapping from semantic model ID to checkpoint filename,
+[`manifests/model_registry.csv`](manifests/model_registry.csv) is the
+ mapping from model ID to checkpoint filename,
 legacy filename, size, and SHA-256. The separately registered
 `transunet_pseudolabel_teacher.weights.h5` generated pseudo-labels and is not one
 of the six final evaluation models.
