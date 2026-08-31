@@ -11,26 +11,29 @@
 </p>
 
 CHANA is a semantic-segmentation and morphometric-analysis workflow for
-TRAP-stained bright-field osteoclast cultures. Manual delineation and counting
-of mature osteoclasts is slow and observer-dependent, while expert-drawn masks
-are expensive to produce. CHANA tests whether sequential training on
+TRAP-stained bright-field osteoclast cultures. Manual counting and segmentation
+of mature osteoclasts is time-consuming and observer-dependent. 
+Deep learning techniques to automate costeoclast segmentation tasks, specifically, 
+require significant volumes of source data to learn the diverse presentations 
+of multinucleated osteoclasts.  CHANA tests whether sequential training on
 diffusion-derived, copy-paste, pseudo-labelled, and expert-labelled images can
-improve performance when expert annotation is limited.
+improve performance when expert hand-annotation of osteoclasts is limited.
 
 The repository compares U-Net, U-Net++, and TransUNet trained either on
 expert-labelled images alone (baseline) or with the four-stage curriculum. It
-includes six evaluation checkpoints, the pseudo-labelling teacher, preprocessing
-and data-generation code, tiled inference through final masks and object
+includes preprocessing and synthetic & copy-paste data-generation code, 
+six evaluation checkpoints, the pseudo-labelling teacher,  tiled inference through final masks and object
 measurements, a cleared example, and the machine-readable results currently
 available.
 
 > Research use only. The results support technical feasibility for image
-> segmentation and measurement; CHANA has not been validated for clinical use,
+> segmentation and measurement of osteoclasts; CHANA has not been validated for clinical use,
 > treatment decisions, or prospective drug screening.
 
 ## Workflow
 
 ![CHANA workflow: preprocessing, three segmentation architectures, domain curriculum, and held-out evaluation](paper/figures/figure_1_overview.png)
+
 
 Bright-field images are preprocessed and tiled to 512 × 512 pixels. The six
 registered models produce foreground probabilities, which are thresholded at
