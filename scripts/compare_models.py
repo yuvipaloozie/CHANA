@@ -102,7 +102,7 @@ def main():
     preprocessor = preprocess_v9 if args.input_stage == "raw" else normalize_preprocessed_rgb
 
     # TensorFlow is optional for repository validation and required only for inference.
-    from chana.models import build_model
+    from chana.models import build_checkpoint_model
     import tensorflow as tf
 
     rows: list[dict[str, object]] = []
@@ -110,7 +110,7 @@ def main():
         spec, checkpoint = resolve_and_verify_checkpoint(
             args.registry, model_id, args.weights_dir
         )
-        model = build_model(spec.architecture, encoder_weights=None)
+        model = build_checkpoint_model(spec.architecture)
         model.load_weights(str(checkpoint))
 
         for pair in pairs:
@@ -190,6 +190,8 @@ def main():
         "count_signed_error",
     ]
     summary = frame.groupby("model_id", as_index=False)[summary_columns].mean()
+    hd95_medians = frame.groupby("model_id")["hd95_px"].median()
+    summary["hd95_px"] = summary["model_id"].map(hd95_medians)
     summary_path = args.output_dir / "summary_metrics.csv"
     summary.to_csv(summary_path, index=False)
     print(summary.to_string(index=False))

@@ -11,7 +11,7 @@ import numpy as np
 
 from chana.checkpoints import resolve_and_verify_checkpoint
 from chana.inference import predict_tiled
-from chana.models import build_model
+from chana.models import build_checkpoint_model
 from chana.postprocessing import filter_and_measure, measurements_frame, separate_objects
 
 
@@ -76,7 +76,7 @@ def main():
     if image is None:
         raise ValueError(f"OpenCV could not read {args.input}")
 
-    model = build_model(architecture, encoder_weights=None)
+    model = build_checkpoint_model(architecture)
     model.load_weights(str(checkpoint))
     probability = predict_tiled(
         model, image, architecture, batch_size=args.batch_size

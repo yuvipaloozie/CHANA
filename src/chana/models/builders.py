@@ -153,3 +153,10 @@ def build_model(architecture: str, **kwargs):
     if key not in builders:
         raise ValueError(f"unsupported architecture: {architecture}")
     return builders[key](**kwargs)
+
+
+def build_checkpoint_model(architecture: str, **kwargs):
+    """Build the architecture exactly as initialized before checkpoint loading."""
+    key = architecture.lower().replace("+", "p").replace("-", "")
+    kwargs.setdefault("encoder_weights", "imagenet" if key == "transunet" else None)
+    return build_model(architecture, **kwargs)

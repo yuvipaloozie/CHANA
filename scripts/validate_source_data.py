@@ -118,6 +118,12 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def csv_sha256(path: Path) -> str:
+    """Hash CSV content with platform line endings normalized to LF."""
+    content = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(content).hexdigest()
+
+
 def read_csv(path: Path, expected_columns: list[str]) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8-sig") as handle:
         reader = csv.DictReader(handle)
@@ -134,7 +140,7 @@ def validate_final_tables() -> None:
         (TABLES / "supplementary_table_s2.csv", TABLE_S2_COLUMNS, 3),
     ]
     for path, columns, expected_rows in table_paths:
-        if sha256(path) != FINAL_TABLE_SHA256[path.name]:
+        if csv_sha256(path) != FINAL_TABLE_SHA256[path.name]:
             raise SystemExit(f"{path.relative_to(ROOT)} differs from the finalized table")
         rows = read_csv(path, columns)
         if len(rows) != expected_rows:
@@ -184,7 +190,7 @@ def main():
         raise SystemExit(f"Figure 4A PR source-data row count is {pr_rows}, expected 522652")
 
     table_s3 = TABLES / "supplementary_table_s3.csv"
-    if sha256(table_s3) != TABLE_S3_SHA256:
+    if csv_sha256(table_s3) != TABLE_S3_SHA256:
         raise SystemExit("Table S3 source-data checksum mismatch")
     with table_s3.open(newline="") as handle:
         reader = csv.DictReader(handle)

@@ -12,7 +12,7 @@ from chana.checkpoints import (
     resolve_checkpoint_path,
     verify_checkpoint_file,
 )
-from chana.models import build_model
+from chana.models import build_checkpoint_model
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -60,7 +60,7 @@ def main():
 
         message = f"{spec.model_id}: size/hash verified ({path.name})"
         if not args.hash_only:
-            model = build_model(spec.architecture, encoder_weights=None)
+            model = build_checkpoint_model(spec.architecture)
             model.load_weights(path)
             message += f", architecture load verified ({model.count_params()} parameters)"
             del model

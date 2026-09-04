@@ -177,6 +177,9 @@ python scripts/compare_models.py \
 This verifies both checkpoint hashes and reports per-image and summary IoU,
 Dice, pixel average precision, HD95, object precision/recall/F1, and count error.
 Use `--input-stage preprocessed` for images that have already passed through V9.
+For the archived holdout, repeat `--model-id` to evaluate all six registered
+models against its `pairs.csv`. On CPU, use `--batch-size 1`; if TensorFlow
+reports an MKL primitive error, set `TF_ENABLE_ONEDNN_OPTS=0` before running.
 
 ## Registered models
 
@@ -194,6 +197,11 @@ Use `--input-stage preprocessed` for images that have already passed through V9.
 legacy filename, size, and SHA-256. The separately registered
 `transunet_pseudolabel_teacher.weights.h5` generated pseudo-labels and is not one
 of the six final evaluation models.
+
+TransUNet must be constructed with the ImageNet-initialized EfficientNetB0
+encoder used during training before its checkpoint is loaded. The repository
+inference commands apply this initialization automatically; the first run may
+download the standard Keras ImageNet weights.
 
 ## Training and data generation
 
