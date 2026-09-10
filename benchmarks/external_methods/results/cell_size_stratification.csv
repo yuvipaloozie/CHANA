@@ -1,0 +1,10 @@
+Model,Size_Category,Detected
+CellPose,Small (<500 px),0.35625
+CellPose,Mature (500-1500 px),0.6252518468770987
+CellPose,Giant (>1500 px),0.5825327510917031
+CellProfiler,Small (<500 px),0.49375
+CellProfiler,Mature (500-1500 px),0.890530557421088
+CellProfiler,Giant (>1500 px),0.9266375545851528
+YOLO,Small (<500 px),0.275
+YOLO,Mature (500-1500 px),0.5379449294828744
+YOLO,Giant (>1500 px),0.7938864628820961
