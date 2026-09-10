@@ -207,8 +207,9 @@ download the standard Keras ImageNet weights.
 
 The curriculum transfers weights through 3,000 diffusion-derived pairs, 1,500
 copy-paste pairs, 2,058 pseudo-labelled real pairs, and final expert-real
-training. Baselines use expert-real training only. Full settings and phase order
-are in [`docs/TRAINING.md`](docs/TRAINING.md).
+training. Baselines use expert-real training only. The consolidated
+[`reproducibility notes`](docs/REPRODUCIBILITY.md) record the data counts,
+training settings, model limitations, and unresolved split boundary.
 
 The original Colab exports remain under
 [`notebooks/legacy/python_exports/`](notebooks/legacy/python_exports/). Set their
@@ -241,6 +242,7 @@ provide interactive entry points without embedded manuscript figures.
 | `manifests/model_registry.csv` | Canonical checkpoint identity and hashes |
 | `paper/` | Figure 1, readable final tables, table CSVs, and available plot data |
 | `tests/` | Deterministic unit and integrity tests |
+| `docs/REPRODUCIBILITY.md` | Data, training, model, and evaluation details |
 
 ## Validate the repository
 
@@ -254,16 +256,13 @@ python -m pytest
 
 ## Reproducibility scope
 
-The repository currently supports environment creation, hash-checked model
-selection, inference through object measurements, baseline/curriculum comparison,
-training-script inspection, and validation of the deposited example and result
-tables.
-
-Before archival release, add the exact image-to-split mapping with stable image
-and source-scan identifiers, plus the remaining machine-readable image/object
-data behind the final plots and confidence intervals. Until that mapping is
-available, describe the evaluation set only as a fixed 281-image holdout. Final
-licensing, release tagging, and DOI archiving are separate release tasks.
+The repository supports environment creation, hash-checked model selection,
+inference through object measurements, baseline/curriculum comparison, and
+validation of the deposited example and tables. The remaining archival items
+are the exact image-to-split mapping and machine-readable data behind plots not
+yet represented by CSVs. Until the split record is available, describe the test
+set only as a fixed 281-image holdout; see the
+[`reproducibility notes`](docs/REPRODUCIBILITY.md).
 
 ## Citation
 
