@@ -26,10 +26,6 @@ six evaluation checkpoints, the pseudo-labelling teacher,  tiled inference throu
 measurements, a cleared example, and the machine-readable results currently
 available.
 
-> Research use only. The results support technical feasibility for image
-> segmentation and measurement of osteoclasts; CHANA has not been validated for clinical use,
-> treatment decisions, or prospective drug screening.
-
 ## Workflow
 
 ![CHANA workflow: preprocessing, three segmentation architectures, domain curriculum, and held-out evaluation](paper/figures/figure_1_overview.png)
