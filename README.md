@@ -28,7 +28,7 @@ available.
 
 ## Workflow
 
-![CHANA workflow: preprocessing, three segmentation architectures, domain curriculum, and held-out evaluation](paper/figures/figure_1_overview.png)
+![CHANA workflow: preprocessing, three segmentation architectures, domain curriculum, and held-out evaluation](paper/figures/figure_1_overview.jpeg)
 
 
 Bright-field images are preprocessed and tiled to 512 × 512 pixels. The six
