@@ -1,6 +1,6 @@
-# CHANA
+# OCLAST
 
-**Cell Histology Automated Neural Network Analyzer**
+**Osteoclast-specific Curriculum Learning for Automatic Segmentation Tasks**
 
 <p align="left">
   <a href="https://github.com/yuvipaloozie/CHANA/actions/workflows/ci.yml">
@@ -10,12 +10,12 @@
   <img alt="Research software" src="https://img.shields.io/badge/Status-Research_Software-4C72B0?style=for-the-badge" height="30">
 </p>
 
-CHANA is a semantic-segmentation and morphometric-analysis workflow for
+OCLAST is a semantic-segmentation and morphometric-analysis workflow for
 TRAP-stained bright-field osteoclast cultures. Manual counting and segmentation
 of mature osteoclasts is time-consuming and observer-dependent. 
 Deep learning techniques to automate osteoclast segmentation tasks 
 require significant volumes of source data to learn the diverse presentations 
-of these multinucleated cells.  CHANA tests whether sequential training on
+of these multinucleated cells.  OCLAST tests whether sequential training on
 diffusion-derived, copy-paste, pseudo-labelled, and expert-labelled images can
 improve performance when expert hand-annotation of osteoclasts is limited.
 
@@ -28,7 +28,7 @@ available.
 
 ## Workflow
 
-![CHANA workflow: preprocessing, three segmentation architectures, domain curriculum, and held-out evaluation](paper/figures/figure_1_overview)
+![OCLAST workflow: preprocessing, three segmentation architectures, domain curriculum, and held-out evaluation](paper/figures/figure_1_overview)
 
 
 Bright-field images are preprocessed and tiled to 512 × 512 pixels. The six
