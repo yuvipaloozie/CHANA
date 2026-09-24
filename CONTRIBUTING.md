@@ -1,6 +1,6 @@
 # Contributing
 
-CHANA is currently a prepublication research repository. Please open an issue before making substantial changes to model definitions, preprocessing, postprocessing, or reported analyses.
+OCLAST is currently a prepublication research repository. Please open an issue before making substantial changes to model definitions, preprocessing, postprocessing, or reported analyses.
 
 ## Development setup
 
