@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use CHANA, please cite the archived software release and associated manuscript."
-title: "CHANA: sequential domain-curriculum learning for cultured osteoclast segmentation"
+message: "If you use OCLAST, please cite the archived software release and associated manuscript."
+title: "OCLAST: sequential domain-curriculum learning for cultured osteoclast segmentation"
 type: software
 version: 0.1.0
 authors:
@@ -16,7 +16,7 @@ authors:
     given-names: Vicky
   - family-names: Taval
     given-names: Shashidharamurthy
-repository-code: "https://github.com/yuvipaloozie/CHANA"
+repository-code: "https://github.com/yuvipaloozie/OCLAST"
 license: NOASSERTION
 abstract: >-
   Research code for semantic segmentation, separation, and quantification of TRAP-stained cultured osteoclasts using

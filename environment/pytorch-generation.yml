@@ -1,4 +1,4 @@
-name: chana-pytorch-generation
+name: oclast-pytorch-generation
 channels:
   - pytorch
   - nvidia

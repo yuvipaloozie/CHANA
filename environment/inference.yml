@@ -1,4 +1,4 @@
-name: chana-inference
+name: oclast-inference
 channels:
   - conda-forge
 dependencies:
